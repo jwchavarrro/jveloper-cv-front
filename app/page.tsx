@@ -58,7 +58,7 @@ export default function Home() {
       <div className="max-w-4xl mx-auto py-8">
         {/* Alert de bienvenida */}
         <Alert type="info" title="¡Bienvenido!" className="mb-6">
-          Esta página demuestra el sistema de Atomic Design + shadcn/ui implementado en Next.js con TypeScript y Tailwind CSS.
+          Esta página demuestra el sistema de Atomic Design actualizado con las bases de shadcn/ui, implementado en Next.js con TypeScript y Tailwind CSS v4.
         </Alert>
 
         {/* Hero Section */}
@@ -165,13 +165,47 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        {/* Avatar Section */}
+        {/* Comparación de Componentes */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>Perfil</CardTitle>
-            <CardDescription>Información del desarrollador</CardDescription>
+            <CardTitle>Comparación de Componentes</CardTitle>
+            <CardDescription>Atomic Design actualizado vs shadcn/ui</CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Atomic Design */}
+              <div className="space-y-4">
+                <Typography variant="h5" className="text-center">
+                  Atomic Design (Actualizado)
+                </Typography>
+                <div className="space-y-3">
+                  <Button variant="default">Botón Atomic</Button>
+                  <Button variant="outline">Outline Atomic</Button>
+                  <Button variant="secondary">Secondary Atomic</Button>
+                </div>
+                <Typography variant="small" color="muted" className="text-center">
+                  Componentes personalizados con estilos de shadcn/ui
+                </Typography>
+              </div>
+
+              {/* shadcn/ui */}
+              <div className="space-y-4">
+                <Typography variant="h5" className="text-center">
+                  shadcn/ui (Directo)
+                </Typography>
+                <div className="space-y-3">
+                  <Button variant="default">Botón shadcn</Button>
+                  <Button variant="outline">Outline shadcn</Button>
+                  <Button variant="secondary">Secondary shadcn</Button>
+                </div>
+                <Typography variant="small" color="muted" className="text-center">
+                  Componentes originales de shadcn/ui
+                </Typography>
+              </div>
+            </div>
+            <Separator className="my-6" />
+            
+            {/* Avatar Section */}
             <div className="flex items-center gap-4">
               <Avatar className="h-16 w-16">
                 <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
@@ -181,7 +215,7 @@ export default function Home() {
                 <Typography variant="h4" className="mb-2">
                   Juan Developer
                 </Typography>
-                <Typography variant="body" color="secondary" className="mb-2">
+                <Typography variant="body" color="muted" className="mb-2">
                   Desarrollador Full Stack con 5+ años de experiencia
                 </Typography>
                 <div className="flex gap-2">
@@ -190,8 +224,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <Separator className="my-4" />
-            <Typography variant="body" color="secondary">
+            <Typography variant="body" color="muted" className="mt-4">
               Especializado en el desarrollo de aplicaciones web modernas con React, Next.js y TypeScript. 
               Experiencia en arquitecturas de microservicios, bases de datos NoSQL y despliegues en la nube.
             </Typography>

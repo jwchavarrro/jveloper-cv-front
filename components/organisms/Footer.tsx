@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography } from '../atoms/Typography';
 import { Icon } from '../atoms/Icon';
+import { cn } from '../../lib/utils';
 
 export interface FooterProps {
   companyName?: string;
@@ -28,70 +29,71 @@ export const Footer: React.FC<FooterProps> = ({
   className = '',
 }) => {
   return (
-    <footer className={`bg-gray-900 text-white ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Información de la empresa */}
-          <div className="col-span-1 lg:col-span-2">
-            <Typography variant="h5" className="text-white mb-4">
-              {companyName}
-            </Typography>
-            <Typography variant="body" color="secondary" className="text-gray-300 mb-4">
-              Desarrollando soluciones innovadoras para el futuro digital.
-            </Typography>
-            {socialLinks.length > 0 && (
-              <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.href}
-                    className="text-gray-400 hover:text-white transition-colors"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Icon name={social.icon} size="md" />
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Enlaces */}
-          {links.map((section, sectionIndex) => (
-            <div key={sectionIndex}>
-              <Typography variant="h6" className="text-white mb-4">
-                {section.title}
-              </Typography>
-              <ul className="space-y-2">
-                {section.items.map((item, itemIndex) => (
-                  <li key={itemIndex}>
-                    <a
-                      href={item.href}
-                      className="text-gray-300 hover:text-white transition-colors"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <footer className={cn('border-t bg-background', className)}>
+      <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
+        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+          <Typography variant="h6" className="font-bold">
+            {companyName}
+          </Typography>
+          <Typography variant="small" color="muted">
+            Desarrollando soluciones innovadoras para el futuro digital.
+          </Typography>
         </div>
 
-        {/* Línea divisoria y copyright */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <Typography variant="small" color="secondary" className="text-gray-400">
-              © {year} {companyName}. Todos los derechos reservados.
-            </Typography>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Política de Privacidad
+        {/* Enlaces */}
+        {links.length > 0 && (
+          <div className="flex flex-wrap gap-6 text-sm text-muted-foreground">
+            {links.map((section, sectionIndex) => (
+              <div key={sectionIndex} className="flex flex-col gap-2">
+                <Typography variant="small" className="font-medium text-foreground">
+                  {section.title}
+                </Typography>
+                <ul className="flex flex-col gap-1">
+                  {section.items.map((item, itemIndex) => (
+                    <li key={itemIndex}>
+                      <a
+                        href={item.href}
+                        className="hover:text-foreground transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Redes sociales */}
+        {socialLinks.length > 0 && (
+          <div className="flex space-x-4">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name={social.icon} size="md" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                Términos de Servicio
-              </a>
-            </div>
+            ))}
+          </div>
+        )}
+
+        {/* Copyright */}
+        <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+          <Typography variant="small" color="muted">
+            © {year} {companyName}. Todos los derechos reservados.
+          </Typography>
+          <div className="flex space-x-4">
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Política de Privacidad
+            </a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              Términos de Servicio
+            </a>
           </div>
         </div>
       </div>

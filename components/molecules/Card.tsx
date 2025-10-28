@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography } from '../atoms/Typography';
+import { cn } from '../../lib/utils';
 
 export interface CardProps {
   children: React.ReactNode;
@@ -22,39 +23,46 @@ export const Card: React.FC<CardProps> = ({
   onClick,
   hover = false,
 }) => {
-  const baseClasses = 'rounded-lg border transition-all duration-200';
+  const baseClasses = 'rounded-lg border bg-card text-card-foreground shadow-sm transition-all duration-200';
   
   const variantClasses = {
-    default: 'bg-white border-gray-200',
-    elevated: 'bg-white border-gray-200 shadow-md',
-    outlined: 'bg-transparent border-gray-300',
-    filled: 'bg-gray-50 border-gray-200',
+    default: 'border-border',
+    elevated: 'border-border shadow-md',
+    outlined: 'border-2 border-border',
+    filled: 'bg-muted/50 border-border',
   };
   
   const paddingClasses = {
     none: '',
     sm: 'p-3',
-    md: 'p-4',
-    lg: 'p-6',
+    md: 'p-6',
+    lg: 'p-8',
   };
   
-  const hoverClasses = hover ? 'hover:shadow-lg hover:scale-105 cursor-pointer' : '';
+  const hoverClasses = hover ? 'hover:shadow-lg hover:scale-[1.02] cursor-pointer' : '';
   const clickableClasses = onClick ? 'cursor-pointer' : '';
   
   return (
     <div
-      className={`${baseClasses} ${variantClasses[variant]} ${paddingClasses[padding]} ${hoverClasses} ${clickableClasses} ${className}`}
+      className={cn(
+        baseClasses,
+        variantClasses[variant],
+        paddingClasses[padding],
+        hoverClasses,
+        clickableClasses,
+        className
+      )}
       onClick={onClick}
     >
       {(title || subtitle) && (
-        <div className="mb-4">
+        <div className="mb-4 space-y-1">
           {title && (
             <Typography variant="h5" className="mb-1">
               {title}
             </Typography>
           )}
           {subtitle && (
-            <Typography variant="body" color="secondary">
+            <Typography variant="body" color="muted">
               {subtitle}
             </Typography>
           )}

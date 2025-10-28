@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '../../lib/utils';
 
 export interface InputProps {
   type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
@@ -27,16 +28,15 @@ export const Input: React.FC<InputProps> = ({
   label,
   error,
 }) => {
-  const baseClasses = 'w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent';
-  const errorClasses = error ? 'border-red-500 focus:ring-red-500' : '';
-  const disabledClasses = disabled ? 'bg-gray-100 cursor-not-allowed' : '';
+  const baseClasses = 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
+  const errorClasses = error ? 'border-destructive focus-visible:ring-destructive' : '';
   
   return (
-    <div className="w-full">
+    <div className="w-full space-y-2">
       {label && (
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={id} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
           {label}
-          {required && <span className="text-red-500 ml-1">*</span>}
+          {required && <span className="text-destructive ml-1">*</span>}
         </label>
       )}
       <input
@@ -48,10 +48,10 @@ export const Input: React.FC<InputProps> = ({
         onChange={onChange}
         disabled={disabled}
         required={required}
-        className={`${baseClasses} ${errorClasses} ${disabledClasses} ${className}`}
+        className={cn(baseClasses, errorClasses, className)}
       />
       {error && (
-        <p className="mt-1 text-sm text-red-600">{error}</p>
+        <p className="text-sm text-destructive">{error}</p>
       )}
     </div>
   );

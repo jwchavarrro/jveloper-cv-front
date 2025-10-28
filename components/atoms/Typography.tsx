@@ -1,9 +1,10 @@
 import React from 'react';
+import { cn } from '../../lib/utils';
 
 export interface TypographyProps {
   children: React.ReactNode;
-  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'caption' | 'small';
-  color?: 'primary' | 'secondary' | 'muted' | 'error' | 'success' | 'warning';
+  variant?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'body' | 'caption' | 'small' | 'lead' | 'large';
+  color?: 'primary' | 'secondary' | 'muted' | 'destructive' | 'success' | 'warning';
   weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
   align?: 'left' | 'center' | 'right' | 'justify';
   className?: string;
@@ -20,24 +21,26 @@ export const Typography: React.FC<TypographyProps> = ({
   as,
 }) => {
   const variantClasses = {
-    h1: 'text-4xl font-bold leading-tight',
-    h2: 'text-3xl font-bold leading-tight',
-    h3: 'text-2xl font-semibold leading-snug',
-    h4: 'text-xl font-semibold leading-snug',
-    h5: 'text-lg font-medium leading-snug',
-    h6: 'text-base font-medium leading-snug',
-    body: 'text-base leading-relaxed',
-    caption: 'text-sm leading-normal',
-    small: 'text-xs leading-normal',
+    h1: 'scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl',
+    h2: 'scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0',
+    h3: 'scroll-m-20 text-2xl font-semibold tracking-tight',
+    h4: 'scroll-m-20 text-xl font-semibold tracking-tight',
+    h5: 'scroll-m-20 text-lg font-semibold tracking-tight',
+    h6: 'scroll-m-20 text-base font-semibold tracking-tight',
+    body: 'leading-7 [&:not(:first-child)]:mt-6',
+    lead: 'text-xl text-muted-foreground',
+    large: 'text-lg font-semibold',
+    caption: 'text-sm font-medium leading-none',
+    small: 'text-sm font-medium',
   };
   
   const colorClasses = {
-    primary: 'text-gray-900',
-    secondary: 'text-gray-600',
-    muted: 'text-gray-500',
-    error: 'text-red-600',
-    success: 'text-green-600',
-    warning: 'text-yellow-600',
+    primary: 'text-foreground',
+    secondary: 'text-secondary-foreground',
+    muted: 'text-muted-foreground',
+    destructive: 'text-destructive',
+    success: 'text-green-600 dark:text-green-400',
+    warning: 'text-yellow-600 dark:text-yellow-400',
   };
   
   const weightClasses = {
@@ -59,7 +62,13 @@ export const Typography: React.FC<TypographyProps> = ({
   
   return (
     <Component
-      className={`${variantClasses[variant]} ${colorClasses[color]} ${weightClasses[weight]} ${alignClasses[align]} ${className}`}
+      className={cn(
+        variantClasses[variant],
+        colorClasses[color],
+        weightClasses[weight],
+        alignClasses[align],
+        className
+      )}
     >
       {children}
     </Component>

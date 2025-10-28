@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from '../atoms/Input';
 import { Button } from '../atoms/Button';
 import { Icon } from '../atoms/Icon';
+import { cn } from '../../lib/utils';
 
 export interface SearchBoxProps {
   placeholder?: string;
@@ -36,7 +37,7 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`flex gap-2 ${className}`}>
+    <form onSubmit={handleSubmit} className={cn('flex gap-2', className)}>
       <div className="flex-1 relative">
         <Input
           type="text"
@@ -47,16 +48,18 @@ export const SearchBox: React.FC<SearchBoxProps> = ({
           className="pr-10"
         />
         {value && (
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={handleClear}
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 text-muted-foreground hover:text-foreground"
           >
             <Icon name="close" size="sm" />
-          </button>
+          </Button>
         )}
       </div>
-      <Button type="submit" disabled={disabled || !value.trim()}>
+      <Button type="submit" disabled={disabled || !value.trim()} size="icon">
         <Icon name="search" size="sm" />
       </Button>
     </form>
