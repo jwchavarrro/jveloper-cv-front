@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * @file page.tsx
  * @description Página principal del sitio
