@@ -5,11 +5,11 @@
  * @description Página principal del sitio
  */
 
-// Importacion de componentes
-import { Button, Input, Typography } from "@/components/atoms";
-import { Alert, Card, SearchBox } from "@/components/molecules";
 import Link from "next/link";
 
+// Importacion de componentes
+import { Button, Input, Typography } from "@/components/atoms";
+import { Card } from "@/components/molecules";
 
 const Home = () => {
   return (
@@ -47,16 +47,6 @@ const Home = () => {
             </Link>
           </nav>
 
-          <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-            <div className="w-full flex-1 md:w-auto md:flex-none">
-              <SearchBox
-                placeholder="Buscar..."
-                onSearch={() => {}}
-                className="w-full"
-              />
-            </div>
-          </div>
-
           <div className="flex items-center space-x-2">
             <Button variant="ghost" size="sm">
               Juan Developer
@@ -68,13 +58,6 @@ const Home = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          {/* Alert de bienvenida */}
-          <Alert type="info" title="¡Bienvenido!" className="mb-6">
-            Esta página demuestra el sistema de Atomic Design actualizado con
-            las bases de shadcn/ui, implementado en Next.js con TypeScript y
-            Tailwind CSS v4.
-          </Alert>
-
           {/* Hero Section */}
           <div className="text-center mb-12">
             <Typography variant="h1" className="mb-4">
@@ -137,22 +120,6 @@ const Home = () => {
               </Typography>
             </Card>
           </div>
-
-          {/* Search Demo */}
-          <Card 
-            title="Búsqueda"
-            variant="outlined"
-            className="mb-8"
-          >
-            <Typography variant="body" color="secondary" className="mb-4">
-              Prueba el componente de búsqueda:
-            </Typography>
-            <SearchBox
-              placeholder="Buscar habilidades, tecnologías..."
-              onSearch={() => {}}
-              className="max-w-md"
-            />
-          </Card>
 
           {/* Skills Section */}
           <Card 

@@ -1,12 +1,14 @@
 "use client";
 
 import React from 'react';
+
 import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from '../ui/button';
+
+// Importacion de utils
 import { cn } from '../../lib/utils';
 
 // Extendemos las props de shadcn/ui para mantener compatibilidad
 export interface ButtonProps extends ShadcnButtonProps {
-  // Aquí puedes agregar props adicionales específicas de Atomic Design
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;

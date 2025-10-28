@@ -2,9 +2,10 @@
 
 import React from 'react';
 import { Input as ShadcnInput } from '../ui/input';
+
+// Importacion de utils
 import { cn } from '../../lib/utils';
 
-// Extendemos las props de React.InputHTMLAttributes
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   // Props adicionales específicas de Atomic Design
   label?: string;
@@ -25,7 +26,9 @@ export const Input: React.FC<InputProps> = ({
   required,
   ...props
 }) => {
-  const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
+  // Use React.useId to generate a stable unique ID for input
+  const reactId = React.useId();
+  const inputId = id || `input-${reactId}`;
   
   return (
     <div className="w-full space-y-2">
