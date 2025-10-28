@@ -1,10 +1,10 @@
 "use client";
 
 import React from 'react';
-import { Input as ShadcnInput } from '../ui/input';
+import { Input as ShadcnInput } from '../../ui/input';
 
 // Importacion de utils
-import { cn } from '../../lib/utils';
+import { cn } from '../../../lib/utils';
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   // Props adicionales específicas de Atomic Design

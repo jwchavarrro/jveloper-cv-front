@@ -1,7 +1,11 @@
 import React from 'react';
-import { Card as ShadcnCard, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { Typography } from '../atoms/Typography';
-import { cn } from '../../lib/utils';
+import { Card as ShadcnCard, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
+
+// Importacion de atoms
+import { Typography } from '@/components/atoms/Typography';
+
+// Importacion de utilities
+import { cn } from '@/lib/utils';
 
 export interface CardProps {
   children: React.ReactNode;

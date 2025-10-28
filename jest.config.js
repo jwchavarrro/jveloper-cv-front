@@ -1,4 +1,4 @@
-import nextJest from 'next/jest'
+const nextJest = require('next/jest')
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files
@@ -10,6 +10,10 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  testMatch: [
+    '**/__tests__/**/*.(test|spec).(js|jsx|ts|tsx)',
+    '**/*.(test|spec).(js|jsx|ts|tsx)'
+  ],
   moduleNameMapping: {
     '^@/(.*)$': '<rootDir>/$1',
   },
