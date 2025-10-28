@@ -1,65 +1,203 @@
-import Image from "next/image";
+import { PageTemplate, Typography, SearchBox, Alert } from '../components';
+import { Button } from '../components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
+import { Separator } from '../components/ui/separator';
 
 export default function Home() {
+  const handleSearch = (query: string) => {
+    console.log('Búsqueda:', query);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <PageTemplate
+      header={{
+        title: 'Mi CV - Atomic Design',
+        showSearch: true,
+        onSearch: handleSearch,
+        navigation: [
+          { label: 'Inicio', href: '/', active: true },
+          { label: 'Sobre mí', href: '/about' },
+          { label: 'Proyectos', href: '/projects' },
+          { label: 'Contacto', href: '/contact' },
+        ],
+        user: {
+          name: 'Juan Developer',
+          avatar: undefined,
+        },
+      }}
+      footer={{
+        companyName: 'Juan Developer',
+        year: 2024,
+        links: [
+          {
+            title: 'Enlaces',
+            items: [
+              { label: 'GitHub', href: 'https://github.com' },
+              { label: 'LinkedIn', href: 'https://linkedin.com' },
+              { label: 'Portfolio', href: '/portfolio' },
+            ],
+          },
+          {
+            title: 'Recursos',
+            items: [
+              { label: 'Documentación', href: '/docs' },
+              { label: 'Blog', href: '/blog' },
+              { label: 'Tutoriales', href: '/tutorials' },
+            ],
+          },
+        ],
+        socialLinks: [
+          { name: 'GitHub', href: 'https://github.com', icon: 'github' },
+          { name: 'LinkedIn', href: 'https://linkedin.com', icon: 'linkedin' },
+          { name: 'Twitter', href: 'https://twitter.com', icon: 'twitter' },
+        ],
+      }}
+    >
+      <div className="max-w-4xl mx-auto py-8">
+        {/* Alert de bienvenida */}
+        <Alert type="info" title="¡Bienvenido!" className="mb-6">
+          Esta página demuestra el sistema de Atomic Design + shadcn/ui implementado en Next.js con TypeScript y Tailwind CSS.
+        </Alert>
+
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <Typography variant="h1" className="mb-4">
+            Juan Developer
+          </Typography>
+          <Typography variant="h3" color="secondary" className="mb-6">
+            Desarrollador Full Stack
+          </Typography>
+          <Typography variant="body" className="mb-8 max-w-2xl mx-auto">
+            Especializado en React, Next.js, TypeScript y Node.js. 
+            Apasionado por crear experiencias digitales excepcionales 
+            y soluciones escalables.
+          </Typography>
+          <div className="flex gap-4 justify-center">
+            <Button size="lg">
+              Ver Proyectos
+            </Button>
+            <Button variant="outline" size="lg">
+              Descargar CV
+            </Button>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        {/* Cards Grid con shadcn/ui */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Badge variant="secondary">Frontend</Badge>
+              </CardTitle>
+              <CardDescription>React, Next.js, TypeScript</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Typography variant="body" color="secondary">
+                Desarrollo de interfaces de usuario modernas y responsivas 
+                con las últimas tecnologías del ecosistema React.
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Badge variant="secondary">Backend</Badge>
+              </CardTitle>
+              <CardDescription>Node.js, Express, MongoDB</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Typography variant="body" color="secondary">
+                APIs robustas y escalables con Node.js, bases de datos 
+                NoSQL y arquitecturas de microservicios.
+              </Typography>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Badge variant="secondary">DevOps</Badge>
+              </CardTitle>
+              <CardDescription>Docker, AWS, CI/CD</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Typography variant="body" color="secondary">
+                Automatización de despliegues, contenedores y 
+                infraestructura en la nube para aplicaciones escalables.
+              </Typography>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Search Demo */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Búsqueda</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Typography variant="body" color="secondary" className="mb-4">
+              Prueba el componente de búsqueda:
+            </Typography>
+            <SearchBox
+              placeholder="Buscar habilidades, tecnologías..."
+              onSearch={handleSearch}
+              className="max-w-md"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          </CardContent>
+        </Card>
+
+        {/* Skills Section */}
+        <Card className="border-2">
+          <CardHeader>
+            <CardTitle>Habilidades Técnicas</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {['React', 'Next.js', 'TypeScript', 'Node.js', 'MongoDB', 'AWS', 'Docker', 'Git'].map((skill) => (
+                <Badge key={skill} variant="outline" className="p-2 text-center">
+                  {skill}
+                </Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Avatar Section */}
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle>Perfil</CardTitle>
+            <CardDescription>Información del desarrollador</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-4">
+              <Avatar className="h-16 w-16">
+                <AvatarImage src="https://github.com/shadcn.png" alt="Avatar" />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
+              <div>
+                <Typography variant="h4" className="mb-2">
+                  Juan Developer
+                </Typography>
+                <Typography variant="body" color="secondary" className="mb-2">
+                  Desarrollador Full Stack con 5+ años de experiencia
+                </Typography>
+                <div className="flex gap-2">
+                  <Badge>Disponible</Badge>
+                  <Badge variant="outline">Remoto</Badge>
+                </div>
+              </div>
+            </div>
+            <Separator className="my-4" />
+            <Typography variant="body" color="secondary">
+              Especializado en el desarrollo de aplicaciones web modernas con React, Next.js y TypeScript. 
+              Experiencia en arquitecturas de microservicios, bases de datos NoSQL y despliegues en la nube.
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+    </PageTemplate>
   );
 }
