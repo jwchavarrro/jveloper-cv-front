@@ -1,57 +1,74 @@
 import React from 'react';
+import { Input as ShadcnInput } from '../ui/input';
 import { cn } from '../../lib/utils';
 
-export interface InputProps {
-  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
-  placeholder?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
-  required?: boolean;
-  className?: string;
-  id?: string;
-  name?: string;
+// Extendemos las props de React.InputHTMLAttributes
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  // Props adicionales específicas de Atomic Design
   label?: string;
   error?: string;
+  helperText?: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
 export const Input: React.FC<InputProps> = ({
-  type = 'text',
-  placeholder,
-  value,
-  onChange,
-  disabled = false,
-  required = false,
-  className = '',
-  id,
-  name,
   label,
   error,
+  helperText,
+  leftIcon,
+  rightIcon,
+  className = '',
+  id,
+  required,
+  ...props
 }) => {
-  const baseClasses = 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
-  const errorClasses = error ? 'border-destructive focus-visible:ring-destructive' : '';
+  const inputId = id || `input-${Math.random().toString(36).substr(2, 9)}`;
   
   return (
     <div className="w-full space-y-2">
       {label && (
-        <label htmlFor={id} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+        <label 
+          htmlFor={inputId} 
+          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
           {label}
           {required && <span className="text-destructive ml-1">*</span>}
         </label>
       )}
-      <input
-        type={type}
-        id={id}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        required={required}
-        className={cn(baseClasses, errorClasses, className)}
-      />
+      
+      <div className="relative">
+        {leftIcon && (
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+            {leftIcon}
+          </div>
+        )}
+        
+        <ShadcnInput
+          {...props}
+          id={inputId}
+          required={required}
+          className={cn(
+            leftIcon && 'pl-10',
+            rightIcon && 'pr-10',
+            error && 'border-destructive focus-visible:ring-destructive',
+            className
+          )}
+        />
+        
+        {rightIcon && (
+          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground">
+            {rightIcon}
+          </div>
+        )}
+      </div>
+      
       {error && (
         <p className="text-sm text-destructive">{error}</p>
+      )}
+      
+      {helperText && !error && (
+        <p className="text-sm text-muted-foreground">{helperText}</p>
       )}
     </div>
   );

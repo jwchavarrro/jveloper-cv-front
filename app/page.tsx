@@ -1,64 +1,72 @@
-import { PageTemplate, Typography, SearchBox, Alert } from '../components';
-import { Button } from '../components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { Separator } from '../components/ui/separator';
+import { Typography, SearchBox, Alert } from "../components";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import { Badge } from "../components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { Separator } from "../components/ui/separator";
 
 export default function Home() {
   const handleSearch = (query: string) => {
-    console.log('Búsqueda:', query);
+    console.log("Búsqueda:", query);
   };
 
   return (
     <PageTemplate
       header={{
-        title: 'Mi CV - Atomic Design',
+        title: "Mi CV - Atomic Design",
         showSearch: true,
         onSearch: handleSearch,
         navigation: [
-          { label: 'Inicio', href: '/', active: true },
-          { label: 'Sobre mí', href: '/about' },
-          { label: 'Proyectos', href: '/projects' },
-          { label: 'Contacto', href: '/contact' },
+          { label: "Inicio", href: "/", active: true },
+          { label: "Sobre mí", href: "/about" },
+          { label: "Proyectos", href: "/projects" },
+          { label: "Contacto", href: "/contact" },
         ],
         user: {
-          name: 'Juan Developer',
+          name: "Juan Developer",
           avatar: undefined,
         },
       }}
       footer={{
-        companyName: 'Juan Developer',
+        companyName: "Juan Developer",
         year: 2024,
         links: [
           {
-            title: 'Enlaces',
+            title: "Enlaces",
             items: [
-              { label: 'GitHub', href: 'https://github.com' },
-              { label: 'LinkedIn', href: 'https://linkedin.com' },
-              { label: 'Portfolio', href: '/portfolio' },
+              { label: "GitHub", href: "https://github.com" },
+              { label: "LinkedIn", href: "https://linkedin.com" },
+              { label: "Portfolio", href: "/portfolio" },
             ],
           },
           {
-            title: 'Recursos',
+            title: "Recursos",
             items: [
-              { label: 'Documentación', href: '/docs' },
-              { label: 'Blog', href: '/blog' },
-              { label: 'Tutoriales', href: '/tutorials' },
+              { label: "Documentación", href: "/docs" },
+              { label: "Blog", href: "/blog" },
+              { label: "Tutoriales", href: "/tutorials" },
             ],
           },
         ],
         socialLinks: [
-          { name: 'GitHub', href: 'https://github.com', icon: 'github' },
-          { name: 'LinkedIn', href: 'https://linkedin.com', icon: 'linkedin' },
-          { name: 'Twitter', href: 'https://twitter.com', icon: 'twitter' },
+          { name: "GitHub", href: "https://github.com", icon: "github" },
+          { name: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+          { name: "Twitter", href: "https://twitter.com", icon: "twitter" },
         ],
       }}
     >
       <div className="max-w-4xl mx-auto py-8">
         {/* Alert de bienvenida */}
         <Alert type="info" title="¡Bienvenido!" className="mb-6">
-          Esta página demuestra el sistema de Atomic Design actualizado con las bases de shadcn/ui, implementado en Next.js con TypeScript y Tailwind CSS v4.
+          Esta página demuestra el sistema de Atomic Design actualizado con las
+          bases de shadcn/ui, implementado en Next.js con TypeScript y Tailwind
+          CSS v4.
         </Alert>
 
         {/* Hero Section */}
@@ -70,14 +78,12 @@ export default function Home() {
             Desarrollador Full Stack
           </Typography>
           <Typography variant="body" className="mb-8 max-w-2xl mx-auto">
-            Especializado en React, Next.js, TypeScript y Node.js. 
-            Apasionado por crear experiencias digitales excepcionales 
-            y soluciones escalables.
+            Especializado en React, Next.js, TypeScript y Node.js. Apasionado
+            por crear experiencias digitales excepcionales y soluciones
+            escalables.
           </Typography>
           <div className="flex gap-4 justify-center">
-            <Button size="lg">
-              Ver Proyectos
-            </Button>
+            <Button size="lg">Ver Proyectos</Button>
             <Button variant="outline" size="lg">
               Descargar CV
             </Button>
@@ -95,8 +101,8 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <Typography variant="body" color="secondary">
-                Desarrollo de interfaces de usuario modernas y responsivas 
-                con las últimas tecnologías del ecosistema React.
+                Desarrollo de interfaces de usuario modernas y responsivas con
+                las últimas tecnologías del ecosistema React.
               </Typography>
             </CardContent>
           </Card>
@@ -110,8 +116,8 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <Typography variant="body" color="secondary">
-                APIs robustas y escalables con Node.js, bases de datos 
-                NoSQL y arquitecturas de microservicios.
+                APIs robustas y escalables con Node.js, bases de datos NoSQL y
+                arquitecturas de microservicios.
               </Typography>
             </CardContent>
           </Card>
@@ -125,8 +131,8 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               <Typography variant="body" color="secondary">
-                Automatización de despliegues, contenedores y 
-                infraestructura en la nube para aplicaciones escalables.
+                Automatización de despliegues, contenedores y infraestructura en
+                la nube para aplicaciones escalables.
               </Typography>
             </CardContent>
           </Card>
@@ -156,8 +162,21 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {['React', 'Next.js', 'TypeScript', 'Node.js', 'MongoDB', 'AWS', 'Docker', 'Git'].map((skill) => (
-                <Badge key={skill} variant="outline" className="p-2 text-center">
+              {[
+                "React",
+                "Next.js",
+                "TypeScript",
+                "Node.js",
+                "MongoDB",
+                "AWS",
+                "Docker",
+                "Git",
+              ].map((skill) => (
+                <Badge
+                  key={skill}
+                  variant="outline"
+                  className="p-2 text-center"
+                >
                   {skill}
                 </Badge>
               ))}
@@ -165,46 +184,115 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        {/* Comparación de Componentes */}
+        {/* Herencia de Componentes */}
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>Comparación de Componentes</CardTitle>
-            <CardDescription>Atomic Design actualizado vs shadcn/ui</CardDescription>
+            <CardTitle>Herencia de Componentes</CardTitle>
+            <CardDescription>
+              Atomic Design ahora hereda de shadcn/ui con funcionalidades
+              adicionales
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Atomic Design */}
+              {/* Atomic Design con herencia */}
               <div className="space-y-4">
                 <Typography variant="h5" className="text-center">
-                  Atomic Design (Actualizado)
+                  Atomic Design (Hereda de shadcn/ui)
                 </Typography>
                 <div className="space-y-3">
-                  <Button variant="default">Botón Atomic</Button>
-                  <Button variant="outline">Outline Atomic</Button>
-                  <Button variant="secondary">Secondary Atomic</Button>
+                  <Button variant="default">Botón Básico</Button>
+                  <Button variant="outline" loading>
+                    Botón Cargando
+                  </Button>
+                  <Button variant="secondary" leftIcon={<span>🚀</span>}>
+                    Con Icono Izquierdo
+                  </Button>
+                  <Button variant="ghost" rightIcon={<span>→</span>}>
+                    Con Icono Derecho
+                  </Button>
                 </div>
-                <Typography variant="small" color="muted" className="text-center">
-                  Componentes personalizados con estilos de shadcn/ui
+                <Typography
+                  variant="small"
+                  color="muted"
+                  className="text-center"
+                >
+                  Hereda de shadcn/ui + funcionalidades adicionales
                 </Typography>
               </div>
 
-              {/* shadcn/ui */}
+              {/* Input con herencia */}
               <div className="space-y-4">
                 <Typography variant="h5" className="text-center">
-                  shadcn/ui (Directo)
+                  Input con Herencia
                 </Typography>
                 <div className="space-y-3">
-                  <Button variant="default">Botón shadcn</Button>
-                  <Button variant="outline">Outline shadcn</Button>
-                  <Button variant="secondary">Secondary shadcn</Button>
+                  <Input placeholder="Input básico" label="Nombre" />
+                  <Input
+                    placeholder="Con icono izquierdo"
+                    leftIcon={<span>🔍</span>}
+                    label="Búsqueda"
+                  />
+                  <Input
+                    placeholder="Con error"
+                    error="Este campo es requerido"
+                    label="Email"
+                  />
+                  <Input
+                    placeholder="Con texto de ayuda"
+                    helperText="Ingresa tu número de teléfono"
+                    label="Teléfono"
+                  />
                 </div>
-                <Typography variant="small" color="muted" className="text-center">
-                  Componentes originales de shadcn/ui
+                <Typography
+                  variant="small"
+                  color="muted"
+                  className="text-center"
+                >
+                  Input de shadcn/ui + label, error, iconos
                 </Typography>
               </div>
             </div>
             <Separator className="my-6" />
-            
+
+            {/* Comparación de Card */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <Typography variant="h6" className="mb-3 text-center">
+                  Card Atomic Design (Personalizada)
+                </Typography>
+                <Card
+                  title="Título Personalizado"
+                  subtitle="Subtítulo con Typography personalizado"
+                  variant="elevated"
+                  hover
+                >
+                  <Typography variant="body" color="muted">
+                    Esta es la estructura personalizada de Atomic Design.
+                  </Typography>
+                </Card>
+              </div>
+
+              <div>
+                <Typography variant="h6" className="mb-3 text-center">
+                  Card shadcn/ui (Estructura Original)
+                </Typography>
+                <Card
+                  title="Título shadcn"
+                  subtitle="Subtítulo con CardDescription"
+                  useShadcnStructure={true}
+                  variant="elevated"
+                  hover
+                >
+                  <Typography variant="body" color="muted">
+                    Esta usa la estructura original de shadcn/ui.
+                  </Typography>
+                </Card>
+              </div>
+            </div>
+
+            <Separator className="my-6" />
+
             {/* Avatar Section */}
             <div className="flex items-center gap-4">
               <Avatar className="h-16 w-16">
@@ -225,8 +313,9 @@ export default function Home() {
               </div>
             </div>
             <Typography variant="body" color="muted" className="mt-4">
-              Especializado en el desarrollo de aplicaciones web modernas con React, Next.js y TypeScript. 
-              Experiencia en arquitecturas de microservicios, bases de datos NoSQL y despliegues en la nube.
+              Especializado en el desarrollo de aplicaciones web modernas con
+              React, Next.js y TypeScript. Experiencia en arquitecturas de
+              microservicios, bases de datos NoSQL y despliegues en la nube.
             </Typography>
           </CardContent>
         </Card>
