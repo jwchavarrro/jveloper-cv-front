@@ -4,5 +4,7 @@
  */
 
 // Exportacion de componentes
+export { Card } from './Card/';     
 
 // Exportacion de tipos
+export type { CardProps } from './Card/';
