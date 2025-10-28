@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { Typography, SearchBox, Alert, Button, Input, Card } from "../components";
+import { Typography } from "../components/atoms";
+import { SearchBox, Alert, Card } from "../components/molecules";
+import { Button, Input } from "../components/atoms";
 import {
   Card as ShadcnCard,
   CardContent,

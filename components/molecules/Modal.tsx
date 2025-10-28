@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from 'react';
 import { Button } from '../atoms/Button';
 import { Icon } from '../atoms/Icon';

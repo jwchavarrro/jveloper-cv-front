@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from '../ui/button';
 import { cn } from '../../lib/utils';

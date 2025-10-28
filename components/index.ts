@@ -1,14 +1,14 @@
-// Atoms
-export * from './atoms';
+/**
+ * @file index.ts
+ * @description Exportación de componentes principales
+ */
 
-// Molecules
-export * from './molecules';
 
-// Organisms
-export * from './organisms';
-
-// Templates
-export * from './templates';
-
-// shadcn/ui Components
+// Exportacion de librerias de shadcn/ui
 export * from './ui';
+
+// Exportacion de componentes custom
+export * from './atoms';
+export * from './molecules';
+export * from './organisms';
+export * from './templates';
