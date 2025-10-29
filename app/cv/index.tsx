@@ -4,7 +4,7 @@
  */
 
 // Importacion de componentes
-import { LayoutPage } from "@/components/template";
+import { LayoutPage } from "@/components/atomic-desing/template";
 
 const CVPage = () => {
   return (

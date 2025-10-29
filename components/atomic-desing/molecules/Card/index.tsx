@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card as ShadcnCard, CardContent, CardDescription, CardHeader, CardTitle } from '../../ui/card';
+import { Card as ShadcnCard, CardContent, CardDescription, CardHeader, CardTitle } from '../../../ui/card';
 
 // Importacion de atoms
 import { Typography } from '@/components/atoms/Typography';
