@@ -20,7 +20,7 @@ export const Taskbar = ({ showStartMenu, setShowStartMenu }: TaskbarProps) => {
    */
   const taskbarApps = PAGE_WINDOWS.FRAGMENTS.TASKBAR.APPS;
   return (
-    <section className="absolute right-0 bottom-0 left-0 h-12 border-t border-white/10 bg-black/90 backdrop-blur-md">
+    <section className="absolute right-0 bottom-0 left-0 h-12 border-t border-border bg-secondary/90 backdrop-blur-md">
         <div className="flex h-full items-center justify-between pl-2">
           <div className="flex items-center space-x-2">
             {/* Botón Inicio */}

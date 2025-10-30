@@ -1,5 +1,7 @@
 import React from 'react'
 
-export const cv = () => {
-  return <div>cv</div>;
+import { Program } from '@/components/pages/components/program'
+
+export const CVProgram = () => {
+  return <Program />;
 };
