@@ -4,7 +4,7 @@
  * @module config/index
  */
 
-export * from './icons';
-export * from './keywords';
-export * from './multimedia';
-export * from './routes-pages';
+export * from "./icons";
+export * from "./keywords";
+export * from "./multimedia";
+export * from "./routes-pages";

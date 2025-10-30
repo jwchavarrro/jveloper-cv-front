@@ -5,4 +5,4 @@
  */
 
 // Import of utilities
-export { PAGE_WINDOWS } from './utils/constants';
+export { PAGE_WINDOWS } from "./utils/constants";

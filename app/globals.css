@@ -7,9 +7,9 @@
 /* Variables CSS para el tema */
 :root {
   --radius: 0.5rem;
-  --font-family-title: var(--font-title);        /* Inter para títulos */
-  --font-family-text: var(--font-text);          /* Source Sans 3 para texto */
-  
+  --font-family-title: var(--font-title); /* Inter para títulos */
+  --font-family-text: var(--font-text); /* Source Sans 3 para texto */
+
   /* Colores en formato HSL para compatibilidad */
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
@@ -59,11 +59,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  
+
   /* Configuración de fuentes */
   --font-title: var(--font-family-title);
   --font-text: var(--font-family-text);
-  
+
   /* Mapeo de colores para Tailwind */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -91,7 +91,7 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground font-title;
   }

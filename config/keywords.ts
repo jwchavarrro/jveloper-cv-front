@@ -9,5 +9,4 @@
  * @description Palabras clave usadas en la aplicación
  */
 
-export const KEYWORDS = {
-};
+export const KEYWORDS = {};

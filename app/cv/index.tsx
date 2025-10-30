@@ -7,13 +7,7 @@
 import { LayoutPage } from "@/components/atomic-desing/template";
 
 const CVPage = () => {
-  return (
-    <LayoutPage
-      header={<p>Header</p>}
-      main={<p>Main</p>}
-      footer={<p>Footer</p>}
-    />
-  );
+  return <LayoutPage header={<p>Header</p>} main={<p>Main</p>} footer={<p>Footer</p>} />;
 };
 
 export default CVPage;

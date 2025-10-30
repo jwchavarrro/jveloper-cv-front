@@ -5,6 +5,7 @@ Este directorio contiene los componentes de [shadcn/ui](https://ui.shadcn.com/),
 ## Componentes Instalados
 
 ### 🎯 Componentes Básicos
+
 - **Button**: Botones con múltiples variantes y tamaños
 - **Input**: Campos de entrada con estilos consistentes
 - **Card**: Contenedores con header, content y footer
@@ -17,20 +18,23 @@ Este directorio contiene los componentes de [shadcn/ui](https://ui.shadcn.com/),
 ## Uso
 
 ### Importación Individual
+
 ```typescript
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 ```
 
 ### Importación desde el índice principal
+
 ```typescript
-import { Button, Card, Badge } from '@/components';
+import { Button, Card, Badge } from "@/components";
 ```
 
 ## Ejemplos de Uso
 
 ### Button
+
 ```typescript
 <Button variant="default" size="lg">
   Botón Principal
@@ -44,6 +48,7 @@ import { Button, Card, Badge } from '@/components';
 ```
 
 ### Card
+
 ```typescript
 <Card>
   <CardHeader>
@@ -60,6 +65,7 @@ import { Button, Card, Badge } from '@/components';
 ```
 
 ### Badge
+
 ```typescript
 <Badge variant="default">Por defecto</Badge>
 <Badge variant="secondary">Secundario</Badge>
@@ -68,6 +74,7 @@ import { Button, Card, Badge } from '@/components';
 ```
 
 ### Avatar
+
 ```typescript
 <Avatar>
   <AvatarImage src="/avatar.jpg" alt="Usuario" />
@@ -93,6 +100,7 @@ bunx shadcn@latest add [component-name]
 ```
 
 Ejemplos:
+
 ```bash
 bunx shadcn@latest add dialog
 bunx shadcn@latest add dropdown-menu

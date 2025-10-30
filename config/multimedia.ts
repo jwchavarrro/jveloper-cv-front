@@ -5,13 +5,12 @@
  */
 
 export const MULTIMEDIA = {
-  FAVICONS: {
-  },
+  FAVICONS: {},
 
   LOGOS: {
-    DEFAULT: '',
+    DEFAULT: "",
   },
   BACKGROUNDS: {
-    DEFAULT: '',
+    DEFAULT: "",
   },
 };

@@ -1,18 +1,24 @@
-import React from 'react';
-import { Card as ShadcnCard, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import React from "react";
+import {
+  Card as ShadcnCard,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 // Importacion de atoms
-import { Typography } from '../../atoms/Typography';
+import { Typography } from "../../atoms/Typography";
 
 // Importacion de utilities
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export interface CardProps {
   children: React.ReactNode;
   title?: string;
   subtitle?: string;
-  variant?: 'default' | 'elevated' | 'outlined' | 'filled';
-  padding?: 'none' | 'sm' | 'md' | 'lg';
+  variant?: "default" | "elevated" | "outlined" | "filled";
+  padding?: "none" | "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
   hover?: boolean;
@@ -24,40 +30,35 @@ export const Card: React.FC<CardProps> = ({
   children,
   title,
   subtitle,
-  variant = 'default',
-  padding = 'md',
-  className = '',
+  variant = "default",
+  padding = "md",
+  className = "",
   onClick,
   hover = false,
   useShadcnStructure = false,
 }) => {
   const variantClasses = {
-    default: '',
-    elevated: 'shadow-md',
-    outlined: 'border-2',
-    filled: 'bg-muted/50',
+    default: "",
+    elevated: "shadow-md",
+    outlined: "border-2",
+    filled: "bg-muted/50",
   };
-  
+
   const paddingClasses = {
-    none: 'p-0',
-    sm: 'p-3',
-    md: 'p-6',
-    lg: 'p-8',
+    none: "p-0",
+    sm: "p-3",
+    md: "p-6",
+    lg: "p-8",
   };
-  
-  const hoverClasses = hover ? 'hover:shadow-lg hover:scale-[1.02] cursor-pointer' : '';
-  const clickableClasses = onClick ? 'cursor-pointer' : '';
-  
+
+  const hoverClasses = hover ? "hover:shadow-lg hover:scale-[1.02] cursor-pointer" : "";
+  const clickableClasses = onClick ? "cursor-pointer" : "";
+
   // Si se especifica usar la estructura de shadcn/ui
   if (useShadcnStructure) {
     return (
       <ShadcnCard
-        className={cn(
-          variantClasses[variant],
-          hoverClasses,
-          clickableClasses,
-          className
-        )}
+        className={cn(variantClasses[variant], hoverClasses, clickableClasses, className)}
         onClick={onClick}
       >
         {(title || subtitle) && (
@@ -66,13 +67,11 @@ export const Card: React.FC<CardProps> = ({
             {subtitle && <CardDescription>{subtitle}</CardDescription>}
           </CardHeader>
         )}
-        <CardContent className={paddingClasses[padding]}>
-          {children}
-        </CardContent>
+        <CardContent className={paddingClasses[padding]}>{children}</CardContent>
       </ShadcnCard>
     );
   }
-  
+
   // Estructura personalizada de Atomic Design
   return (
     <ShadcnCard
@@ -81,7 +80,7 @@ export const Card: React.FC<CardProps> = ({
         paddingClasses[padding],
         hoverClasses,
         clickableClasses,
-        className
+        className,
       )}
       onClick={onClick}
     >

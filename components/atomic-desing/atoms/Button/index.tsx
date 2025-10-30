@@ -1,11 +1,11 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 
-import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from '@/components/ui/button';
+import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from "@/components/ui/button";
 
 // Importacion de utils
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 // Extendemos las props de shadcn/ui para mantener compatibilidad
 export interface ButtonProps extends ShadcnButtonProps {
@@ -20,15 +20,11 @@ export const Button: React.FC<ButtonProps> = ({
   leftIcon,
   rightIcon,
   disabled = false,
-  className = '',
+  className = "",
   ...props
 }) => {
   return (
-    <ShadcnButton
-      {...props}
-      disabled={disabled || loading}
-      className={cn(className)}
-    >
+    <ShadcnButton {...props} disabled={disabled || loading} className={cn(className)}>
       {loading && (
         <svg
           className="mr-2 h-4 w-4 animate-spin"

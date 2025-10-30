@@ -1,7 +1,7 @@
-import '@testing-library/jest-dom'
+import "@testing-library/jest-dom";
 
 // Mock de Next.js router
-jest.mock('next/navigation', () => ({
+jest.mock("next/navigation", () => ({
   useRouter() {
     return {
       push: jest.fn(),
@@ -10,38 +10,38 @@ jest.mock('next/navigation', () => ({
       back: jest.fn(),
       forward: jest.fn(),
       refresh: jest.fn(),
-    }
+    };
   },
   useSearchParams() {
-    return new URLSearchParams()
+    return new URLSearchParams();
   },
   usePathname() {
-    return '/'
+    return "/";
   },
-}))
+}));
 
 // Mock de Next.js Link
-jest.mock('next/link', () => {
+jest.mock("next/link", () => {
   return function MockLink({ children, href, ...props }) {
     return (
       <a href={href} {...props}>
         {children}
       </a>
-    )
-  }
-})
+    );
+  };
+});
 
 // Configuración global para tests
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
   observe: jest.fn(),
   unobserve: jest.fn(),
   disconnect: jest.fn(),
-}))
+}));
 
 // Mock de window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -51,4 +51,4 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: jest.fn(),
     dispatchEvent: jest.fn(),
   })),
-})
+});
