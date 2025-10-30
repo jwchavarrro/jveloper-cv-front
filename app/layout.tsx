@@ -27,8 +27,7 @@ const openSans = Open_Sans({
 
 export const metadata: Metadata = {
   title: "Juan Developer - CV Portfolio",
-  description:
-    "Portfolio profesional desarrollado con Next.js, TypeScript y Tailwind CSS v4",
+  description: "Portfolio profesional desarrollado con Next.js, TypeScript y Tailwind CSS v4",
 };
 
 export default function RootLayout({
@@ -38,9 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${poppins.variable} ${openSans.variable} antialiased`}>
-        {children}
-      </body>
+      <body className={`${poppins.variable} ${openSans.variable} antialiased`}>{children}</body>
     </html>
   );
 }

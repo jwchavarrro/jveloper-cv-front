@@ -21,6 +21,8 @@ export const PAGE_WINDOWS = {
         },
         {
           name: "Papelera",
+          icon: "🗑️",
+          type: "trash",
         },
         {
           name: "Documentos",
@@ -29,6 +31,8 @@ export const PAGE_WINDOWS = {
         },
         {
           name: "Jveloper",
+          icon: "🔷",
+          type: "app",
         },
       ],
     },

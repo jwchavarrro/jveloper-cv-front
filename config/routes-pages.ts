@@ -10,9 +10,9 @@
  */
 
 export const ROUTES_PAGES = {
-  WINDOWS: '/windows',
+  WINDOWS: "/windows",
   CV: {
-    CV: '/cv',
-    WORKSPACE: '/cv/workspace',
+    CV: "/cv",
+    WORKSPACE: "/cv/workspace",
   },
 };

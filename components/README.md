@@ -17,6 +17,7 @@ components/
 ## Niveles de Atomic Design
 
 ### 🔬 Atoms (Átomos) - Actualizados con shadcn/ui
+
 Componentes básicos e indivisibles que forman la base del sistema de diseño, ahora con estilos y utilidades de shadcn/ui.
 
 - **Button**: Botón con variantes de shadcn/ui (default, destructive, outline, secondary, ghost, link)
@@ -25,6 +26,7 @@ Componentes básicos e indivisibles que forman la base del sistema de diseño, a
 - **Icon**: Iconos SVG reutilizables con soporte para Lucide React
 
 ### 🧬 Molecules (Moléculas) - Con estilos de shadcn/ui
+
 Combinaciones de átomos que forman componentes funcionales simples, actualizados con el sistema de diseño de shadcn/ui.
 
 - **SearchBox**: Campo de búsqueda con botón y estilos mejorados
@@ -33,6 +35,7 @@ Combinaciones de átomos que forman componentes funcionales simples, actualizado
 - **Alert**: Notificaciones con tipos mejorados y soporte para modo oscuro
 
 ### 🦠 Organisms (Organismos) - Actualizados con shadcn/ui
+
 Componentes complejos que combinan moléculas y átomos para crear secciones funcionales, con estilos modernos de shadcn/ui.
 
 - **Header**: Encabezado sticky con backdrop blur y navegación mejorada
@@ -41,6 +44,7 @@ Componentes complejos que combinan moléculas y átomos para crear secciones fun
 - **Sidebar**: Barra lateral para dashboards con estilos de shadcn/ui
 
 ### 📄 Templates (Plantillas)
+
 Plantillas de página que definen la estructura general de las páginas.
 
 - **PageTemplate**: Plantilla básica con header y footer
@@ -48,6 +52,7 @@ Plantillas de página que definen la estructura general de las páginas.
 - **AuthTemplate**: Plantilla para páginas de autenticación
 
 ### 🎨 shadcn/ui Components
+
 Componentes directos de shadcn/ui disponibles para uso inmediato.
 
 - **Button, Card, Input, Alert, Badge, Avatar, Separator, Sheet** y más
@@ -57,17 +62,19 @@ Componentes directos de shadcn/ui disponibles para uso inmediato.
 ## Uso
 
 ### Importación
+
 ```typescript
 // Importar todos los componentes (Atomic Design + shadcn/ui)
-import { Button, Card, Header, PageTemplate } from '@/components';
+import { Button, Card, Header, PageTemplate } from "@/components";
 
 // Importar desde niveles específicos
-import { Button } from '@/components/atoms';           // Atomic Design
-import { Card } from '@/components/molecules';         // Atomic Design
-import { Button as ShadcnButton } from '@/components/ui/button'; // shadcn/ui directo
+import { Button } from "@/components/atoms"; // Atomic Design
+import { Card } from "@/components/molecules"; // Atomic Design
+import { Button as ShadcnButton } from "@/components/ui/button"; // shadcn/ui directo
 ```
 
 ### Ejemplo de uso
+
 ```typescript
 import { PageTemplate, Typography, Button, Card } from '@/components';
 import { Badge, Avatar, AvatarImage, AvatarFallback } from '@/components/ui';
@@ -134,6 +141,7 @@ Para agregar nuevos componentes:
 5. **shadcn/ui**: Usar `bunx shadcn@latest add [component-name]`
 
 ### Agregar componentes de shadcn/ui
+
 ```bash
 # Instalar nuevos componentes
 bunx shadcn@latest add dialog

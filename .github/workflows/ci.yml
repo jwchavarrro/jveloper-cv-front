@@ -56,4 +56,3 @@ jobs:
         run: |
           echo "### ✅ Tests completados" >> $GITHUB_STEP_SUMMARY
           echo "- Cobertura generada en ./coverage" >> $GITHUB_STEP_SUMMARY
-

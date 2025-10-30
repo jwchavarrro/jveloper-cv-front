@@ -1,0 +1,14 @@
+# Build outputs
+.next
+out
+build
+coverage
+
+# Dependencies
+node_modules
+
+# Misc
+*.log
+package-lock.json
+**/*.snap
+
