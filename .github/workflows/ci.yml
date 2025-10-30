@@ -2,44 +2,53 @@ name: CI
 
 on:
   push:
-    branches: ["**"]
-  pull_request:
-    branches: ["**"]
+    branches: ["dev", "main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Bun
+      - name: 🔧 Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Build
+      - name: 🏗️ Build
         run: bun run build
+
+      - name: 📝 Summary
+        run: |
+          echo "### ✅ Build completado" >> $GITHUB_STEP_SUMMARY
+          echo "- Rama: $GITHUB_REF_NAME" >> $GITHUB_STEP_SUMMARY
+          echo "- Entorno: $RUNNER_OS" >> $GITHUB_STEP_SUMMARY
 
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Bun
+      - name: 🔧 Setup Bun
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
 
-      - name: Install dependencies
+      - name: 📦 Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Test (CI)
+      - name: 🧪 Test (CI)
         run: bun run test:ci
+
+      - name: 📝 Summary
+        run: |
+          echo "### ✅ Tests completados" >> $GITHUB_STEP_SUMMARY
+          echo "- Cobertura generada en ./coverage" >> $GITHUB_STEP_SUMMARY
 
