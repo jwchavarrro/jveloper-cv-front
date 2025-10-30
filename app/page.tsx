@@ -1,6 +1,16 @@
+/**
+ * @file page.tsx
+ * @description Página principal del sitio - Escritorio Windows 11
+ * @module app/page
+ */
+
+
 "use client";
 
 import { useState } from "react";
+
+// Import of utilities
+import { PAGE_WINDOWS } from "@/components/pages/windows";
 
 /**
  * @file page.tsx
@@ -11,18 +21,11 @@ const Home = () => {
   const [showStartMenu, setShowStartMenu] = useState(false);
   const [showDesktopIcons, setShowDesktopIcons] = useState(true);
 
-  const desktopIcons = [
-    { name: "Este PC", icon: "🖥️", type: "folder" },
-    { name: "Papelera", icon: "🗑️", type: "trash" },
-    { name: "Documentos", icon: "📁", type: "folder" },
-    { name: "Jveloper", icon: "🔷", type: "app" },
-  ];
+  const desktopIcons = PAGE_WINDOWS.FRAGMENTS.DESKTOP.ICONS;
 
-  const taskbarApps = [
-    { name: "Inicio", icon: "🪟", isActive: showStartMenu },
-    { name: "Explorador", icon: "📁", isActive: false },
-    { name: "Jveloper", icon: "🔷", isActive: false },
-  ];
+  const taskbarApps = PAGE_WINDOWS.FRAGMENTS.TASKBAR.APPS.map((app) =>
+    app.name === "Inicio" ? { ...app, isActive: showStartMenu } : app
+  );
 
   return (
     <div className="h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
