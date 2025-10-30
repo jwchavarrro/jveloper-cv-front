@@ -2,10 +2,10 @@
 
 import React from 'react';
 
-import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from '../../ui/button';
+import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from '@/components/ui/button';
 
 // Importacion de utils
-import { cn } from '../../../lib/utils';
+import { cn } from '@/lib/utils';
 
 // Extendemos las props de shadcn/ui para mantener compatibilidad
 export interface ButtonProps extends ShadcnButtonProps {

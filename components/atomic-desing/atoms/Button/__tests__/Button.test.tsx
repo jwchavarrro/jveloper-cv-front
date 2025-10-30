@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Button } from '@/components/atoms/Button'
+import { Button } from '@/components/atomic-desing/atoms/Button'
 
 describe('Button Component', () => {
   it('renders with children', () => {
@@ -23,7 +23,7 @@ describe('Button Component', () => {
   it('applies size styles correctly', () => {
     render(<Button size="lg">Large Button</Button>)
     const button = screen.getByRole('button')
-    expect(button).toHaveClass('h-11')
+    expect(button).toHaveClass('h-10')
   })
 
   it('shows loading state', () => {

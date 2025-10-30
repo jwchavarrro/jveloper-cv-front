@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card as ShadcnCard, CardContent, CardDescription, CardHeader, CardTitle } from '../../../ui/card';
+import { Card as ShadcnCard, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 // Importacion de atoms
-import { Typography } from '@/components/atoms/Typography';
+import { Typography } from '../../atoms/Typography';
 
 // Importacion de utilities
 import { cn } from '@/lib/utils';
