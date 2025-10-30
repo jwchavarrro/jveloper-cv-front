@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -30,6 +31,7 @@ jobs:
           echo "- Entorno: $RUNNER_OS" >> $GITHUB_STEP_SUMMARY
 
   test:
+    name: Test
     runs-on: ubuntu-latest
 
     steps:
