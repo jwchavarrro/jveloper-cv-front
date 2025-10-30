@@ -1,78 +1,105 @@
+/**
+ * @file program/index.tsx
+ * @description Componente de ventana de programa
+ * @module components/pages/components/program/index.tsx
+ */
+
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import {
-  Dialog,
-  DialogOverlay,
-  DialogPortal,
-} from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
+import { Dialog, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
 import { Minus, Maximize2, Minimize2, X } from "lucide-react";
 
+// Import of utilities
+import { cn } from "@/lib/utils";
 
-export const Program = () => {
+interface ProgramProps {
+  children: React.ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
 
-  // Estados de la ventana
-  const [isMaximized, setIsMaximized] = useState<boolean>(false);
-  const [isMinimized, setIsMinimized] = useState<boolean>(false);
-  const [open, setOpen] = useState<boolean>(true);
+enum WindowState {
+  IDLE = "idle",
+  NORMAL = "normal",
+  MINIMIZED = "minimized",
+  MAXIMIZED = "maximized",
+  CLOSED = "closed",
+}
 
+export const Program = ({ children, open: externalOpen, onOpenChange }: ProgramProps) => {
+  // Estado único que maneja los 3 estados posibles
+  const [windowState, setWindowState] = useState<WindowState>(WindowState.IDLE);
+
+  // Sincronizar con prop open (ahora requerida)
+  const currentState =
+    externalOpen && windowState === WindowState.IDLE
+      ? WindowState.NORMAL
+      : !externalOpen
+        ? WindowState.CLOSED
+        : windowState;
 
   /**
    * @description Minimizar la ventana
    */
   const handleMinimize = () => {
-    setIsMinimized(true);
+    setWindowState(WindowState.MINIMIZED);
+    onOpenChange(false);
   };
 
   /**
    * @description Maximizar la ventana
-   */       
+   */
   const handleMaximize = () => {
-    setIsMaximized(!isMaximized);
+    setWindowState((prev) =>
+      prev === WindowState.MAXIMIZED ? WindowState.NORMAL : WindowState.MAXIMIZED,
+    );
   };
 
   /**
    * @description Cerrar la ventana
    */
   const handleClose = () => {
-    setIsMinimized(false);
-    setIsMaximized(false);
-    setOpen(false);
+    setWindowState(WindowState.CLOSED);
+    onOpenChange(false);
   };
 
   /**
-   * @description Si está minimizado, no renderizar el modal
+   * @description Si está idle, minimizado o cerrado, no renderizar el modal
    */
-  if (isMinimized) {
+  if (
+    currentState === WindowState.IDLE ||
+    currentState === WindowState.MINIMIZED ||
+    currentState === WindowState.CLOSED
+  ) {
     return null;
   }
 
+  const isMaximized = currentState === WindowState.MAXIMIZED;
+
   return (
-    <Dialog 
-      open={open} 
+    <Dialog
+      open={externalOpen}
       onOpenChange={(newOpen) => {
         if (!newOpen) {
-          // Solo resetear estados cuando se cierra, setOpen ya se maneja por onOpenChange
-          setIsMinimized(false);
-          setIsMaximized(false);
+          setWindowState(WindowState.CLOSED);
+          onOpenChange(false);
         }
-        setOpen(newOpen);
       }}
     >
       <DialogPortal>
         <DialogOverlay className="bg-transparent" />
         <DialogPrimitive.Content
           className={cn(
-            "fixed left-[50%] top-[50%] z-50 w-full max-w-4xl translate-x-[-50%] translate-y-[-50%] border border-border bg-card shadow-2xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
-            isMaximized && "left-0 top-0 translate-x-0 translate-y-0 w-full h-full max-w-full"
+            "border-border bg-card data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] fixed top-[50%] left-[50%] z-50 w-full max-w-5xl translate-x-[-50%] translate-y-[-50%] border shadow-2xl",
+            isMaximized && "top-0 left-0 h-full w-full max-w-full translate-x-0 translate-y-0",
           )}
           onInteractOutside={(e) => e.preventDefault()}
           onEscapeKeyDown={(e) => e.preventDefault()}
         >
           {/* Barra de título */}
-          <div className="flex h-8 items-center justify-between border-b border-border bg-secondary px-2">
+          <div className="border-border bg-secondary flex h-8 items-center justify-between border-b px-2">
             {/* Área izquierda vacía */}
             <div className="flex-1" />
 
@@ -81,7 +108,7 @@ export const Program = () => {
               {/* Botón Minimizar */}
               <button
                 onClick={handleMinimize}
-                className="flex h-6 w-6 items-center justify-center text-foreground transition-colors hover:bg-accent"
+                className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
                 aria-label="Minimizar"
               >
                 <Minus className="h-3.5 w-3.5" />
@@ -90,7 +117,7 @@ export const Program = () => {
               {/* Botón Maximizar/Restaurar */}
               <button
                 onClick={handleMaximize}
-                className="flex h-6 w-6 items-center justify-center text-foreground transition-colors hover:bg-accent"
+                className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
                 aria-label={isMaximized ? "Restaurar" : "Maximizar"}
               >
                 {isMaximized ? (
@@ -103,7 +130,7 @@ export const Program = () => {
               {/* Botón Cerrar */}
               <button
                 onClick={handleClose}
-                className="flex h-6 w-6 items-center justify-center text-foreground transition-colors hover:bg-destructive hover:text-destructive-foreground"
+                className="text-foreground hover:bg-destructive hover:text-destructive-foreground flex h-6 w-6 items-center justify-center transition-colors"
                 aria-label="Cerrar"
               >
                 <X className="h-3.5 w-3.5" />
@@ -112,9 +139,7 @@ export const Program = () => {
           </div>
 
           {/* Área de contenido */}
-          <div className="min-h-96 h-full bg-background">
-            {/* Aquí irá el contenido */}
-          </div>
+          <div className="bg-background h-full min-h-96">{children}</div>
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>
