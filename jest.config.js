@@ -14,18 +14,29 @@ const customJestConfig = {
     '**/__tests__/**/*.(test|spec).(js|jsx|ts|tsx)',
     '**/*.(test|spec).(js|jsx|ts|tsx)'
   ],
-  moduleNameMapping: {
+  moduleNameMapper: {
+    '^@/components/atoms/(.*)$': '<rootDir>/components/atomic-desing/atoms/$1',
     '^@/(.*)$': '<rootDir>/$1',
   },
   collectCoverageFrom: [
-    'components/**/*.{js,jsx,ts,tsx}',
-    'app/**/*.{js,jsx,ts,tsx}',
+    'components/atomic-desing/**/*.{js,jsx,ts,tsx}',
+    'components/pages/**/*.{js,jsx,ts,tsx}',
     'lib/**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
+    '!components/ui/**',
+    '!app/**',
   ],
   coverageReporters: ['text', 'lcov', 'html'],
   coverageDirectory: 'coverage',
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+  },
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
