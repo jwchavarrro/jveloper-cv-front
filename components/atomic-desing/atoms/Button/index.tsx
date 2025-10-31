@@ -7,7 +7,7 @@ import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from "@/comp
 // Importacion de utils
 import { cn } from "@/lib/utils";
 
-interface ButtonProps extends ShadcnButtonProps {
+export interface ButtonProps extends ShadcnButtonProps {
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;

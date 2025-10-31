@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from '@/components/ui/dialog';
-import { Typography } from "@/components/atomic-desing/atoms/typography/typography";
+import { Typography } from "@/components/atomic-desing/atoms";
 
 
 export interface DialogHeaderProps {

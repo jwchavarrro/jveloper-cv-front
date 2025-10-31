@@ -6,7 +6,7 @@ import { Input as ShadcnInput } from "@/components/ui/input";
 // Importacion de utils
 import { cn } from "@/lib/utils";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   // Props adicionales específicas de Atomic Design
   label?: string;
   error?: string;

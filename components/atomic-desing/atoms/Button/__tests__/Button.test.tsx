@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Button } from "@/components/atomic-desing/atoms/button/button";
+import { Button } from "@/components/atomic-desing/atoms";
 
 describe("Button Component", () => {
   it("renders with children", () => {

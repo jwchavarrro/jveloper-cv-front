@@ -3,7 +3,7 @@ import React from "react";
 // Importacion de utils
 import { cn } from "@/lib/utils";
 
-interface TypographyProps {
+export interface TypographyProps {
   children: React.ReactNode;
   variant?:
     | "h1"

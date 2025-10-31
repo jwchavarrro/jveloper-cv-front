@@ -4,6 +4,11 @@
  */
 
 // Exportacion de componentes
-export * from "@/components/atomic-desing/atoms/button/button";
-export * from "@/components/atomic-desing/atoms/typography/typography";
-export * from "@/components/atomic-desing/atoms/input/input";
+export { Button } from "./button";
+export { Input } from "./input";
+export { Typography } from "./typography";
+
+// Exportacion de tipos
+export type { ButtonProps } from "./button";
+export type { TypographyProps } from "./typography";
+export type { InputProps } from "./input";
