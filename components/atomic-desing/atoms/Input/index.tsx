@@ -15,7 +15,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   rightIcon?: React.ReactNode;
 }
 
-export const Input: React.FC<InputProps> = ({
+export const Input = ({
   label,
   error,
   helperText,
@@ -25,7 +25,7 @@ export const Input: React.FC<InputProps> = ({
   id,
   required,
   ...props
-}) => {
+}: InputProps) => {
   // Use React.useId to generate a stable unique ID for input
   const reactId = React.useId();
   const inputId = id || `input-${reactId}`;

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Card } from "@/components/atomic-desing/molecules/Card";
+import { Card } from "@/components/atomic-desing/molecules/card";
 
 describe("Card (molecule)", () => {
   it("renderiza contenido children", () => {

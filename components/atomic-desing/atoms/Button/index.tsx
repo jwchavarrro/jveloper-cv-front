@@ -7,14 +7,13 @@ import { Button as ShadcnButton, ButtonProps as ShadcnButtonProps } from "@/comp
 // Importacion de utils
 import { cn } from "@/lib/utils";
 
-// Extendemos las props de shadcn/ui para mantener compatibilidad
 export interface ButtonProps extends ShadcnButtonProps {
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button = ({
   children,
   loading = false,
   leftIcon,
@@ -22,7 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
   className = "",
   ...props
-}) => {
+}: ButtonProps) => {
   return (
     <ShadcnButton {...props} disabled={disabled || loading} className={cn(className)}>
       {loading && (

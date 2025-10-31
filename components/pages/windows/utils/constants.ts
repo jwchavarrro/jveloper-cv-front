@@ -15,7 +15,7 @@ export const PAGE_WINDOWS = {
     DESKTOP: {
       ICONS: [
         {
-          name: "Este PC",
+          name: "Mi Equipo",
           icon: "🖥️",
           type: "folder",
         },
