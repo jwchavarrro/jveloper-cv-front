@@ -5,10 +5,10 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { DialogHeader } from '@/components/atomic-design/molecules/dialog/dialog-header';
+import { DialogHeader } from '@/components/atomic-desing/molecules/dialog/dialog-header';
 
 // Mock external dependencies explicitly
-jest.mock('@/components/atomic-design/atoms/shadcn/dialog', () => ({
+jest.mock('@/components/ui/dialog', () => ({
   DialogHeader: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
     <div data-testid="shadcn-dialog-header" {...props}>
       {children}
@@ -26,38 +26,38 @@ jest.mock('@/components/atomic-design/atoms/shadcn/dialog', () => ({
   ),
 }));
 
-jest.mock('@/components/atomic-design/atoms/typography/title', () => ({
-  Title: ({ title, level, color, ...props }: { 
-    title: string; 
-    level?: string; 
+jest.mock('@/components/atomic-desing/atoms/typography', () => ({
+  Typography: ({ children, variant, color, weight, ...props }: { 
+    children: React.ReactNode; 
+    variant?: string; 
     color?: string; 
+    weight?: string; 
     [key: string]: any;
-  }) => (
-    <h3 
-      data-testid="custom-title" 
-      data-level={level} 
-      data-color={color}
-      {...props}
-    >
-      {title}
-    </h3>
-  ),
-}));
-
-jest.mock('@/components/atomic-design/atoms/typography/text', () => ({
-  Text: ({ text, size, ...props }: { 
-    text: string; 
-    size?: string; 
-    [key: string]: any;
-  }) => (
-    <span 
-      data-testid="custom-text" 
-      data-size={size}
-      {...props}
-    >
-      {text}
-    </span>
-  ),
+  }) => {
+    if (variant === 'h3') {
+      return (
+        <h3 
+          data-testid="custom-title" 
+          data-variant={variant}
+          data-color={color}
+          data-weight={weight}
+          {...props}
+        >
+          {children}
+        </h3>
+      );
+    }
+    return (
+      <span 
+        data-testid="custom-text" 
+        data-variant={variant}
+        data-color={color}
+        {...props}
+      >
+        {children}
+      </span>
+    );
+  },
 }));
 
 describe('DialogHeader', () => {
@@ -117,8 +117,9 @@ describe('DialogHeader', () => {
       render(<DialogHeader title={title} />);
 
       const titleElement = screen.getByTestId('custom-title');
-      expect(titleElement).toHaveAttribute('data-level', 'h3');
-      expect(titleElement).toHaveAttribute('data-color', 'default');
+      expect(titleElement).toHaveAttribute('data-variant', 'h3');
+      expect(titleElement).toHaveAttribute('data-color', 'primary');
+      expect(titleElement).toHaveAttribute('data-weight', 'semibold');
       expect(titleElement).toHaveTextContent(title);
     });
 
@@ -127,7 +128,8 @@ describe('DialogHeader', () => {
       render(<DialogHeader description={description} />);
 
       const textElement = screen.getByTestId('custom-text');
-      expect(textElement).toHaveAttribute('data-size', 'xs');
+      expect(textElement).toHaveAttribute('data-variant', 'caption');
+      expect(textElement).toHaveAttribute('data-color', 'muted');
       expect(textElement).toHaveTextContent(description);
     });
 
@@ -197,7 +199,7 @@ describe('DialogHeader', () => {
       render(<DialogHeader title="Título de Sección" />);
       
       const titleElement = screen.getByTestId('custom-title');
-      expect(titleElement).toHaveAttribute('data-level', 'h3');
+      expect(titleElement).toHaveAttribute('data-variant', 'h3');
     });
   });
 });
