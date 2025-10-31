@@ -18,6 +18,9 @@ interface ProgramProps {
   children: React.ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  header?: React.ReactNode;
+  titleBar?: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
 enum WindowState {
@@ -28,7 +31,14 @@ enum WindowState {
   CLOSED = "closed",
 }
 
-export const Program = ({ children, open: externalOpen, onOpenChange }: ProgramProps) => {
+export const Program = ({
+  children,
+  open: externalOpen,
+  onOpenChange,
+  header,
+  titleBar,
+  footer,
+}: ProgramProps) => {
   // Estado único que maneja los 3 estados posibles
   const [windowState, setWindowState] = useState<WindowState>(WindowState.IDLE);
 
@@ -99,47 +109,54 @@ export const Program = ({ children, open: externalOpen, onOpenChange }: ProgramP
           onEscapeKeyDown={(e) => e.preventDefault()}
         >
           {/* Barra de título */}
-          <div className="border-border bg-secondary flex h-8 items-center justify-between border-b px-2">
-            {/* Área izquierda vacía */}
-            <div className="flex-1" />
+          {titleBar ? (
+            titleBar
+          ) : (
+            <div className="border-border bg-secondary flex h-8 items-center justify-between border-b px-2">
+              {/* Área izquierda - Header */}
+              <div className="flex-1">{header}</div>
 
-            {/* Botones de control */}
-            <div className="flex items-center gap-1">
-              {/* Botón Minimizar */}
-              <button
-                onClick={handleMinimize}
-                className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
-                aria-label="Minimizar"
-              >
-                <Minus className="h-3.5 w-3.5" />
-              </button>
+              {/* Botones de control */}
+              <div className="flex items-center gap-1">
+                {/* Botón Minimizar */}
+                <button
+                  onClick={handleMinimize}
+                  className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
+                  aria-label="Minimizar"
+                >
+                  <Minus className="h-3.5 w-3.5" />
+                </button>
 
-              {/* Botón Maximizar/Restaurar */}
-              <button
-                onClick={handleMaximize}
-                className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
-                aria-label={isMaximized ? "Restaurar" : "Maximizar"}
-              >
-                {isMaximized ? (
-                  <Minimize2 className="h-3.5 w-3.5" />
-                ) : (
-                  <Maximize2 className="h-3.5 w-3.5" />
-                )}
-              </button>
+                {/* Botón Maximizar/Restaurar */}
+                <button
+                  onClick={handleMaximize}
+                  className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
+                  aria-label={isMaximized ? "Restaurar" : "Maximizar"}
+                >
+                  {isMaximized ? (
+                    <Minimize2 className="h-3.5 w-3.5" />
+                  ) : (
+                    <Maximize2 className="h-3.5 w-3.5" />
+                  )}
+                </button>
 
-              {/* Botón Cerrar */}
-              <button
-                onClick={handleClose}
-                className="text-foreground hover:bg-destructive hover:text-destructive-foreground flex h-6 w-6 items-center justify-center transition-colors"
-                aria-label="Cerrar"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
+                {/* Botón Cerrar */}
+                <button
+                  onClick={handleClose}
+                  className="text-foreground hover:bg-destructive hover:text-destructive-foreground flex h-6 w-6 items-center justify-center transition-colors"
+                  aria-label="Cerrar"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Área de contenido */}
           <div className="bg-background h-full min-h-96">{children}</div>
+
+          {/* Footer */}
+          {footer && <div>{footer}</div>}
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>

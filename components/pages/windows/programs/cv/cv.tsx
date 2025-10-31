@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
 
-import { Program } from '@/components/pages/components/program'
+import { Program } from "@/components/pages/components/program";
 
 export const CVProgram = () => {
-  return <Program open={true} onOpenChange={() => {}}>
-    <div>
-      <h1>CV</h1>
-    </div>
-  </Program>;
+  return (
+    <Program
+      open={true}
+      onOpenChange={() => {}}
+      header={<div>Título de la ventana</div>}
+      footer={<div>Pie de página</div>}
+    >
+      Contenido
+    </Program>
+  );
 };
