@@ -16,9 +16,8 @@ import {
   DialogHeader as ShadcnDialogHeader,
   DialogTitle,
   DialogDescription,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import { Typography } from "@/components/atomic-desing/atoms";
-
 
 export interface DialogHeaderProps {
   title?: string;
@@ -39,7 +38,7 @@ export const DialogHeader = ({ title, description }: DialogHeaderProps) => {
         </DialogTitle>
       )}
       {description && (
-        <DialogDescription id='dialog-description'>
+        <DialogDescription id="dialog-description">
           <Typography variant="caption" color="muted">
             {description}
           </Typography>

@@ -1,9 +1,9 @@
 /**
  * Componente BaseDialog
  *
- * Proporciona la estructura general para cualquier diálogo reutilizable 
- * en la aplicación, integrando encabezado, contenido y pie de página. 
- * Los estilos dependen de la configuración en Tailwind y variables 
+ * Proporciona la estructura general para cualquier diálogo reutilizable
+ * en la aplicación, integrando encabezado, contenido y pie de página.
+ * Los estilos dependen de la configuración en Tailwind y variables
  * definidas en styles/globals.css.
  *
  * Props principales:
@@ -20,20 +20,14 @@
  * </BaseDialog>
  */
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { DialogHeader, type DialogHeaderProps } from './dialog-header';
-import { DialogFooter, type DialogFooterProps } from './dialog-footer';
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { DialogHeader, type DialogHeaderProps } from "./dialog-header";
+import { DialogFooter, type DialogFooterProps } from "./dialog-footer";
 
 // Import of utilities
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-export interface BaseDialogProps
-  extends DialogHeaderProps,
-    Omit<DialogFooterProps, 'footer'> {
+export interface BaseDialogProps extends DialogHeaderProps, Omit<DialogFooterProps, "footer"> {
   open?: boolean;
   setOpen?: (open: boolean) => void;
   trigger?: React.ReactNode;
@@ -64,7 +58,7 @@ export const BaseDialog: React.FC<BaseDialogProps> = ({
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent
         className={cn(extraClassName)}
-        aria-describedby={description ? 'dialog-description' : undefined}
+        aria-describedby={description ? "dialog-description" : undefined}
       >
         <DialogHeader title={title} description={description} />
         {children}

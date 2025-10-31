@@ -7,9 +7,9 @@
  * <DialogFooter footer={<Algo />} />
  */
 
-import { memo } from 'react';
-import { DialogFooter as ShadcnDialogFooter } from '@/components/ui/dialog';
-import { DialogActions, type DialogActionsProps } from './dialog-actions';
+import { memo } from "react";
+import { DialogFooter as ShadcnDialogFooter } from "@/components/ui/dialog";
+import { DialogActions, type DialogActionsProps } from "./dialog-actions";
 
 export interface DialogFooterProps extends DialogActionsProps {
   footer?: React.ReactNode;
@@ -20,8 +20,8 @@ export const DialogFooter = memo<DialogFooterProps>(
     footer,
     showCancel = true,
     showConfirm = true,
-    cancelText = 'Cancelar',
-    confirmText = 'Confirmar',
+    cancelText = "Cancelar",
+    confirmText = "Confirmar",
     onCancel,
     onConfirm,
     ...buttonProps
@@ -42,12 +42,8 @@ export const DialogFooter = memo<DialogFooterProps>(
       ...buttonProps,
     };
 
-    return (
-      <ShadcnDialogFooter>
-        {footer || <DialogActions {...actionProps} />}
-      </ShadcnDialogFooter>
-    );
-  }
+    return <ShadcnDialogFooter>{footer || <DialogActions {...actionProps} />}</ShadcnDialogFooter>;
+  },
 );
 
-DialogFooter.displayName = 'DialogFooter';
+DialogFooter.displayName = "DialogFooter";
