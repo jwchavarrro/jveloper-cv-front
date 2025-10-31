@@ -4,6 +4,6 @@
  */
 
 // Exportacion de componentes
-export * from "./button";
-export * from "./typography";
-export * from "./input";
+export * from "./button/index";
+export * from "./typography/index";
+export * from "./input/index";
