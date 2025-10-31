@@ -4,6 +4,6 @@
  */
 
 // Exportacion de componentes
-export * from "./button/button";
-export * from "./typography/typography";
-export * from "./input/input";
+export * from "@/components/atomic-desing/atoms/button/button";
+export * from "@/components/atomic-desing/atoms/typography/typography";
+export * from "@/components/atomic-desing/atoms/input/input";
