@@ -3,62 +3,69 @@
  * Siguiendo las directrices de testing.md
  */
 
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { DialogHeader } from '@/components/atomic-desing/molecules/dialog/dialog-header';
+// Mock external dependencies BEFORE imports
+// This ensures Jest can properly resolve the mocks in CI environments
+jest.mock('@/components/ui/dialog', () => {
+  const React = require('react');
+  return {
+    DialogHeader: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
+      <div data-testid="shadcn-dialog-header" {...props}>
+        {children}
+      </div>
+    ),
+    DialogTitle: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
+      <div data-testid="dialog-title" {...props}>
+        {children}
+      </div>
+    ),
+    DialogDescription: ({ children, id, ...props }: { children: React.ReactNode; id?: string; [key: string]: any }) => (
+      <div data-testid="dialog-description" id={id} {...props}>
+        {children}
+      </div>
+    ),
+  };
+});
 
-// Mock external dependencies explicitly
-jest.mock('@/components/ui/dialog', () => ({
-  DialogHeader: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
-    <div data-testid="shadcn-dialog-header" {...props}>
-      {children}
-    </div>
-  ),
-  DialogTitle: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
-    <div data-testid="dialog-title" {...props}>
-      {children}
-    </div>
-  ),
-  DialogDescription: ({ children, id, ...props }: { children: React.ReactNode; id?: string; [key: string]: any }) => (
-    <div data-testid="dialog-description" id={id} {...props}>
-      {children}
-    </div>
-  ),
-}));
-
-jest.mock('@/components/atomic-desing/atoms/typography', () => ({
-  Typography: ({ children, variant, color, weight, ...props }: { 
-    children: React.ReactNode; 
-    variant?: string; 
-    color?: string; 
-    weight?: string; 
-    [key: string]: any;
-  }) => {
-    if (variant === 'h3') {
+jest.mock('@/components/atomic-desing/atoms/typography', () => {
+  const React = require('react');
+  return {
+    Typography: ({ children, variant, color, weight, ...props }: { 
+      children: React.ReactNode; 
+      variant?: string; 
+      color?: string; 
+      weight?: string; 
+      [key: string]: any;
+    }) => {
+      if (variant === 'h3') {
+        return (
+          <h3 
+            data-testid="custom-title" 
+            data-variant={variant}
+            data-color={color}
+            data-weight={weight}
+            {...props}
+          >
+            {children}
+          </h3>
+        );
+      }
       return (
-        <h3 
-          data-testid="custom-title" 
+        <span 
+          data-testid="custom-text" 
           data-variant={variant}
           data-color={color}
-          data-weight={weight}
           {...props}
         >
           {children}
-        </h3>
+        </span>
       );
-    }
-    return (
-      <span 
-        data-testid="custom-text" 
-        data-variant={variant}
-        data-color={color}
-        {...props}
-      >
-        {children}
-      </span>
-    );
-  },
-}));
+    },
+  };
+});
+
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import { DialogHeader } from '@/components/atomic-desing/molecules/dialog/dialog-header';
 
 describe('DialogHeader', () => {
   describe('Renderizado condicional', () => {

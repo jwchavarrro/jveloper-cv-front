@@ -1,33 +1,35 @@
+// Mock the custom Button component BEFORE imports
+// This ensures Jest can properly resolve the mock in CI environments
+jest.mock('@/components/atomic-desing/atoms/button', () => {
+  const React = require('react');
+  return {
+    Button: ({
+      children,
+      onClick,
+      variant,
+      ...props
+    }: {
+      children?: React.ReactNode;
+      onClick?: () => void;
+      variant?: string;
+      [key: string]: any;
+    }) => (
+      <button
+        onClick={onClick}
+        role='button'
+        data-testid='custom-button'
+        data-variant={variant}
+        {...props}
+      >
+        {children}
+      </button>
+    ),
+  };
+});
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { DialogActions } from '@/components/atomic-desing/molecules/dialog/dialog-actions';
-// import type { ComponentProps } from 'react';
-// import { Button } from '@/components/atomic-desing/atoms/button';
-
-// Mock the custom Button component
-jest.mock('@/components/atomic-desing/atoms/button', () => ({
-  Button: ({
-    children,
-    onClick,
-    variant,
-    ...props
-  }: {
-    children?: React.ReactNode;
-    onClick?: () => void;
-    variant?: string;
-    [key: string]: any;
-  }) => (
-    <button
-      onClick={onClick}
-      role='button'
-      data-testid='custom-button'
-      data-variant={variant}
-      {...props}
-    >
-      {children}
-    </button>
-  ),
-}));
 
 describe('DialogActions', () => {
   it('renders both buttons by default', () => {

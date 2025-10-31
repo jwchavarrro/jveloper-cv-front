@@ -12,7 +12,7 @@ const customJestConfig = {
   testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
   testMatch: ["**/__tests__/**/*.(test|spec).(js|jsx|ts|tsx)", "**/*.(test|spec).(js|jsx|ts|tsx)"],
   moduleNameMapper: {
-    "^@/components/atoms/(.*)$": "<rootDir>/components/atomic-desing/atoms/$1",
+    "^@/components/atomic-desing/atoms/(.*)$": "<rootDir>/components/atomic-desing/atoms/$1",
     "^@/(.*)$": "<rootDir>/$1",
   },
   collectCoverageFrom: [
