@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 
 // Importacion de atoms
-import { Typography } from "@/components/atomic-desing/atoms/typography";
+import { Typography } from "@/components/atomic-desing/atoms/typography/typography";
 
 // Importacion de utilities
 import { cn } from "@/lib/utils";

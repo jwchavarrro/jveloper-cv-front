@@ -21,7 +21,7 @@ import { cn } from '@/lib/utils';
 import {
   Button,
   type ButtonProps,
-} from '@/components/atomic-desing/atoms/button';
+} from '@/components/atomic-desing/atoms/button/button';
 
 export interface DialogActionsProps
   extends Omit<ButtonProps, 'text' | 'onClick'> {

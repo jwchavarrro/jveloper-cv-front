@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Typography } from "@/components/atomic-desing/atoms/typography";
+import { Typography } from "@/components/atomic-desing/atoms/typography/typography";
 
 describe("Typography Component", () => {
   it("renders with children", () => {

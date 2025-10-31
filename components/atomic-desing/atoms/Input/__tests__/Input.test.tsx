@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { Input } from "@/components/atomic-desing/atoms/input";
+import { Input } from "@/components/atomic-desing/atoms/input/input";
 
 describe("Input Component", () => {
   it("renders with default props", () => {
