@@ -11,21 +11,27 @@ describe("LayoutPage (template)", () => {
 
   describe("Estructura semántica", () => {
     it("renderiza elemento header semántico", () => {
-      render(<LayoutPage header={<div>Header</div>} main={<div>Main</div>} footer={<div>Footer</div>} />);
+      render(
+        <LayoutPage header={<div>Header</div>} main={<div>Main</div>} footer={<div>Footer</div>} />,
+      );
       const header = screen.getByText("Header").closest("header");
       expect(header).toBeInTheDocument();
       expect(header?.tagName).toBe("HEADER");
     });
 
     it("renderiza elemento main semántico", () => {
-      render(<LayoutPage header={<div>Header</div>} main={<div>Main</div>} footer={<div>Footer</div>} />);
+      render(
+        <LayoutPage header={<div>Header</div>} main={<div>Main</div>} footer={<div>Footer</div>} />,
+      );
       const main = screen.getByText("Main").closest("main");
       expect(main).toBeInTheDocument();
       expect(main?.tagName).toBe("MAIN");
     });
 
     it("renderiza elemento footer semántico", () => {
-      render(<LayoutPage header={<div>Header</div>} main={<div>Main</div>} footer={<div>Footer</div>} />);
+      render(
+        <LayoutPage header={<div>Header</div>} main={<div>Main</div>} footer={<div>Footer</div>} />,
+      );
       const footer = screen.getByText("Footer").closest("footer");
       expect(footer).toBeInTheDocument();
       expect(footer?.tagName).toBe("FOOTER");
@@ -42,7 +48,14 @@ describe("LayoutPage (template)", () => {
     it("aplica clases CSS correctas al header", () => {
       render(<LayoutPage header={<div>H</div>} main={<div>M</div>} footer={<div>F</div>} />);
       const header = screen.getByText("H").closest("header");
-      expect(header).toHaveClass("flex", "items-center", "justify-between", "border-b", "p-2", "px-5");
+      expect(header).toHaveClass(
+        "flex",
+        "items-center",
+        "justify-between",
+        "border-b",
+        "p-2",
+        "px-5",
+      );
     });
 
     it("aplica clases CSS correctas al main", () => {
