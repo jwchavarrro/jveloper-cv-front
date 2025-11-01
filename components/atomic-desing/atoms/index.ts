@@ -4,11 +4,11 @@
  */
 
 // Exportación de componentes
-export { Button } from "./button/index";
-export { Input } from "./input/index";
-export { Typography } from "./typography/index";
+export { Button } from "./button1/index";
+export { Input } from "./input1/index";
+export { Typography } from "./typography1/index";
 
 // Exportación de tipos
-export type { ButtonProps } from "./button/index";
-export type { InputProps } from "./input/index";
-export type { TypographyProps } from "./typography/index";
+export type { ButtonProps } from "./button1/index";
+export type { InputProps } from "./input1/index";
+export type { TypographyProps } from "./typography1/index";
