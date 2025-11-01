@@ -1,19 +1,30 @@
 const nextJest = require("next/jest.js");
+const path = require("path");
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files
   dir: "./",
 });
 
+// Normalizar rutas para que funcionen en Windows y Linux
+const normalizePath = (filePath) => {
+  return filePath.replace(/\\/g, "/");
+};
+
 // Add any custom config to be passed to Jest
 const customJestConfig = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  setupFilesAfterEnv: [path.join("<rootDir>", "jest.setup.js").replace(/\\/g, "/")],
   testEnvironment: "jsdom",
-  testPathIgnorePatterns: ["<rootDir>/.next/", "<rootDir>/node_modules/"],
+  testPathIgnorePatterns: [
+    normalizePath("<rootDir>/.next/"),
+    normalizePath("<rootDir>/node_modules/"),
+  ],
   testMatch: ["**/__tests__/**/*.(test|spec).(js|jsx|ts|tsx)", "**/*.(test|spec).(js|jsx|ts|tsx)"],
   moduleNameMapper: {
-    "^@/components/atomic-desing/atoms/(.*)$": "<rootDir>/components/atomic-desing/atoms/$1",
-    "^@/(.*)$": "<rootDir>/$1",
+    "^@/components/atomic-desing/atoms/(.*)$": normalizePath(
+      "<rootDir>/components/atomic-desing/atoms/$1",
+    ),
+    "^@/(.*)$": normalizePath("<rootDir>/$1"),
   },
   collectCoverageFrom: [
     "components/atomic-desing/**/*.{js,jsx,ts,tsx}",
@@ -33,38 +44,39 @@ const customJestConfig = {
       lines: 60,
       statements: 60,
     },
-    // Umbrales por archivo: mínimo 60%, máximo 80%
-    "./components/pages/windows/fragments/desktop-icons.tsx": {
+    // Umbrales por archivo: mínimo 60%
+    // Usar forward slashes siempre para compatibilidad Windows/Linux
+    "components/pages/windows/fragments/desktop-icons.tsx": {
       branches: 60,
       functions: 60,
       lines: 60,
       statements: 60,
     },
-    "./components/pages/windows/fragments/taskbar/taskbar.tsx": {
+    "components/pages/windows/fragments/taskbar/taskbar.tsx": {
       branches: 60,
       functions: 60,
       lines: 60,
       statements: 60,
     },
-    "./components/pages/windows/fragments/taskbar/fragments/start-menu.tsx": {
+    "components/pages/windows/fragments/taskbar/fragments/start-menu.tsx": {
       branches: 60,
       functions: 60,
       lines: 60,
       statements: 60,
     },
-    "./components/pages/components/program/index.tsx": {
+    "components/pages/components/program/index.tsx": {
       branches: 60,
       functions: 60,
       lines: 60,
       statements: 60,
     },
-    "./components/atomic-desing/molecules/dialog/base-dialog.tsx": {
+    "components/atomic-desing/molecules/dialog/base-dialog.tsx": {
       branches: 60,
       functions: 60,
       lines: 60,
       statements: 60,
     },
-    "./components/atomic-desing/molecules/dialog/dialog-footer.tsx": {
+    "components/atomic-desing/molecules/dialog/dialog-footer.tsx": {
       branches: 60,
       functions: 60,
       lines: 60,

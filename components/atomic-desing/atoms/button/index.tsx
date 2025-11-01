@@ -13,7 +13,7 @@ export interface ButtonProps extends ShadcnButtonProps {
   rightIcon?: React.ReactNode;
 }
 
-export const Button = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   loading = false,
   leftIcon,
@@ -21,7 +21,7 @@ export const Button = ({
   disabled = false,
   className = "",
   ...props
-}: ButtonProps) => {
+}) => {
   return (
     <ShadcnButton {...props} disabled={disabled || loading} className={cn(className)}>
       {loading && (

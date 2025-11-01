@@ -39,7 +39,14 @@ describe("DesktopIcons", () => {
     const { container } = render(<DesktopIcons />);
     const mainContainer = container.firstChild as HTMLElement;
 
-    expect(mainContainer).toHaveClass("absolute", "top-4", "left-4", "grid", "grid-cols-1", "gap-4");
+    expect(mainContainer).toHaveClass(
+      "absolute",
+      "top-4",
+      "left-4",
+      "grid",
+      "grid-cols-1",
+      "gap-4",
+    );
   });
 
   it("no renderiza iconos si el array está vacío", () => {
@@ -76,4 +83,3 @@ describe("DesktopIcons", () => {
     );
   });
 });
-

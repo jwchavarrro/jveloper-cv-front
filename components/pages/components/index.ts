@@ -4,4 +4,5 @@
  */
 
 // Exportacion de programas
-export { Program } from "./program";
+// Usar ruta explícita para compatibilidad Windows/Linux (case-sensitive)
+export { Program } from "./program/index";

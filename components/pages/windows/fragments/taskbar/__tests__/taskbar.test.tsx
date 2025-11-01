@@ -25,7 +25,9 @@ describe("Taskbar", () => {
   });
 
   it("renderiza la barra de tareas", () => {
-    const { container } = render(<Taskbar showStartMenu={false} setShowStartMenu={mockSetShowStartMenu} />);
+    const { container } = render(
+      <Taskbar showStartMenu={false} setShowStartMenu={mockSetShowStartMenu} />,
+    );
 
     const taskbar = container.querySelector("section");
     expect(taskbar).toBeInTheDocument();
@@ -33,7 +35,9 @@ describe("Taskbar", () => {
   });
 
   it("renderiza el botón de inicio", () => {
-    const { container } = render(<Taskbar showStartMenu={false} setShowStartMenu={mockSetShowStartMenu} />);
+    const { container } = render(
+      <Taskbar showStartMenu={false} setShowStartMenu={mockSetShowStartMenu} />,
+    );
 
     const startButton = container.querySelector("button:first-child");
     expect(startButton).toBeInTheDocument();
@@ -41,7 +45,9 @@ describe("Taskbar", () => {
   });
 
   it("cambia el estado del menú inicio al hacer clic", () => {
-    const { container } = render(<Taskbar showStartMenu={false} setShowStartMenu={mockSetShowStartMenu} />);
+    const { container } = render(
+      <Taskbar showStartMenu={false} setShowStartMenu={mockSetShowStartMenu} />,
+    );
 
     const startButton = container.querySelector("button:first-child") as HTMLButtonElement;
     fireEvent.click(startButton);
@@ -51,7 +57,9 @@ describe("Taskbar", () => {
   });
 
   it("muestra el estado activo del menú inicio", () => {
-    const { container } = render(<Taskbar showStartMenu={true} setShowStartMenu={mockSetShowStartMenu} />);
+    const { container } = render(
+      <Taskbar showStartMenu={true} setShowStartMenu={mockSetShowStartMenu} />,
+    );
 
     const startButton = container.querySelector("button:first-child");
     expect(startButton).toHaveClass("bg-white/20");
@@ -73,7 +81,9 @@ describe("Taskbar", () => {
   });
 
   it("toggle el menú inicio cuando se hace clic nuevamente", () => {
-    const { container } = render(<Taskbar showStartMenu={true} setShowStartMenu={mockSetShowStartMenu} />);
+    const { container } = render(
+      <Taskbar showStartMenu={true} setShowStartMenu={mockSetShowStartMenu} />,
+    );
 
     const startButton = container.querySelector("button:first-child") as HTMLButtonElement;
     fireEvent.click(startButton);
@@ -81,4 +91,3 @@ describe("Taskbar", () => {
     expect(mockSetShowStartMenu).toHaveBeenCalledWith(false);
   });
 });
-

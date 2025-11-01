@@ -24,7 +24,7 @@ export interface DialogHeaderProps {
   description?: string;
 }
 
-export const DialogHeader = ({ title, description }: DialogHeaderProps) => {
+export const DialogHeader: React.FC<DialogHeaderProps> = ({ title, description }) => {
   // Retornar null si no hay título ni descripción
   if (!title && !description) return null;
 

@@ -6,14 +6,27 @@
 // Mock external dependencies BEFORE imports
 // This ensures Jest can properly resolve the mocks in CI environments
 jest.mock("@/components/ui/dialog", () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const React = require("react");
   return {
-    DialogHeader: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
+    DialogHeader: ({
+      children,
+      ...props
+    }: {
+      children: React.ReactNode;
+      [key: string]: unknown;
+    }) => (
       <div data-testid="shadcn-dialog-header" {...props}>
         {children}
       </div>
     ),
-    DialogTitle: ({ children, ...props }: { children: React.ReactNode; [key: string]: any }) => (
+    DialogTitle: ({
+      children,
+      ...props
+    }: {
+      children: React.ReactNode;
+      [key: string]: unknown;
+    }) => (
       <div data-testid="dialog-title" {...props}>
         {children}
       </div>
@@ -25,7 +38,7 @@ jest.mock("@/components/ui/dialog", () => {
     }: {
       children: React.ReactNode;
       id?: string;
-      [key: string]: any;
+      [key: string]: unknown;
     }) => (
       <div data-testid="dialog-description" id={id} {...props}>
         {children}
@@ -35,6 +48,7 @@ jest.mock("@/components/ui/dialog", () => {
 });
 
 jest.mock("@/components/atomic-desing/atoms/typography", () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const React = require("react");
   return {
     Typography: ({
@@ -48,7 +62,7 @@ jest.mock("@/components/atomic-desing/atoms/typography", () => {
       variant?: string;
       color?: string;
       weight?: string;
-      [key: string]: any;
+      [key: string]: unknown;
     }) => {
       if (variant === "h3") {
         return (

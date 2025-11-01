@@ -3,12 +3,12 @@
  * @description Componentes básicos e indivisibles
  */
 
-// Exportacion de componentes
-export { Button } from "./button";
-export { Input } from "./input";
-export { Typography } from "./typography";
+// Exportación de componentes
+export { Button } from "./button/index";
+export { Input } from "./input/index";
+export { Typography } from "./typography/index";
 
-// Exportacion de tipos
-export type { ButtonProps } from "./button";
-export type { TypographyProps } from "./typography";
-export type { InputProps } from "./input";
+// Exportación de tipos
+export type { ButtonProps } from "./button/index";
+export type { InputProps } from "./input/index";
+export type { TypographyProps } from "./typography/index";
