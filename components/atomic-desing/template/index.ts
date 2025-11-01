@@ -3,4 +3,5 @@
  * @description Exportación de componentes de template
  */
 
-export * from "./layout-page";
+// Exportación de componentes
+export { LayoutPage } from "./layout-page";
