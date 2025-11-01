@@ -102,4 +102,3 @@ describe("DialogFooter", () => {
     expect(screen.getByTestId("dialog-actions")).toBeInTheDocument();
   });
 });
-
