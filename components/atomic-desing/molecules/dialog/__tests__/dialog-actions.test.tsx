@@ -1,6 +1,7 @@
 // Mock the custom Button component BEFORE imports
 // This ensures Jest can properly resolve the mock in CI environments
 jest.mock("@/components/atomic-desing/atoms/button", () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const React = require("react");
   return {
     Button: ({
@@ -12,7 +13,7 @@ jest.mock("@/components/atomic-desing/atoms/button", () => {
       children?: React.ReactNode;
       onClick?: () => void;
       variant?: string;
-      [key: string]: any;
+      [key: string]: unknown;
     }) => (
       <button
         onClick={onClick}
@@ -94,5 +95,12 @@ describe("DialogActions", () => {
 
     const cancelButton = screen.getByRole("button", { name: "Cancelar" });
     expect(cancelButton).toHaveAttribute("data-variant", "outline");
+  });
+
+  it("applies correct variant to confirm button", () => {
+    render(<DialogActions />);
+
+    const confirmButton = screen.getByRole("button", { name: "Confirmar" });
+    expect(confirmButton).toHaveAttribute("data-variant", "secondary");
   });
 });

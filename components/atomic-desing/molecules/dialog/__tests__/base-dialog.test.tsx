@@ -7,7 +7,6 @@ jest.mock("@/components/ui/dialog", () => ({
   Dialog: ({
     children,
     open,
-    onOpenChange,
   }: {
     children: React.ReactNode;
     open?: boolean;
@@ -30,7 +29,7 @@ jest.mock("@/components/ui/dialog", () => ({
       {children}
     </div>
   ),
-  DialogTrigger: ({ children, asChild }: { children: React.ReactNode; asChild?: boolean }) => (
+  DialogTrigger: ({ children }: { children: React.ReactNode; asChild?: boolean }) => (
     <div data-testid="dialog-trigger">{children}</div>
   ),
 }));
@@ -45,7 +44,7 @@ jest.mock("../dialog-header", () => ({
 }));
 
 jest.mock("../dialog-footer", () => ({
-  DialogFooter: (props: any) => <div data-testid="dialog-footer">Footer</div>,
+  DialogFooter: () => <div data-testid="dialog-footer">Footer</div>,
 }));
 
 describe("BaseDialog", () => {
