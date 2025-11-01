@@ -1,10 +1,14 @@
-import React from "react";
+/**
+ * @file cv.tsx
+ * @description Componente para la ventana CV
+ * @module components/pages/windows/programs/cv/cv
+ */
 
 // Import of components custom
 import { Program } from "@/components/pages/components/program";
 
 // Import of fragments
-import { HeaderCustom } from "./fragments/header-custom";
+import { HeaderCustom, FooterCustom } from "./fragments";
 
 export const CVProgram = () => {
   return (
@@ -12,7 +16,7 @@ export const CVProgram = () => {
       open={true}
       onOpenChange={() => {}}
       headerCustom={<HeaderCustom />}
-      footerCustom={<div>Pie de página</div>}
+      footerCustom={<FooterCustom />}
     >
       Contenido
     </Program>

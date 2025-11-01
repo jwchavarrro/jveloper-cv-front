@@ -6,3 +6,4 @@
 
 // Import of utilities
 export { HeaderCustom } from "./header-custom";
+export { FooterCustom } from "./footer-custom";
