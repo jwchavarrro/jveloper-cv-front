@@ -11,7 +11,7 @@ interface LayoutPageProps {
   footer: React.ReactNode;
 }
 
-export const LayoutPage = ({ header, main, footer }: LayoutPageProps) => {
+export const LayoutPage: React.FC<LayoutPageProps> = ({ header, main, footer }) => {
   return (
     <div className="flex h-screen flex-col">
       {/* Header */}

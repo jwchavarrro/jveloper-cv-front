@@ -24,7 +24,7 @@ export interface TypographyProps {
   as?: keyof React.JSX.IntrinsicElements;
 }
 
-export const Typography = ({
+export const Typography: React.FC<TypographyProps> = ({
   children,
   variant = "body",
   color = "primary",
@@ -32,7 +32,7 @@ export const Typography = ({
   align = "left",
   className = "",
   as,
-}: TypographyProps) => {
+}) => {
   const variantClasses = {
     h1: "scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl font-title",
     h2: "scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0 font-title",
