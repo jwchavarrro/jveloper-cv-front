@@ -25,6 +25,15 @@ const eslintConfig = defineConfig([
       "prettier/prettier": "error",
     },
   },
+  // Excepción para jest.config.js - Jest requiere CommonJS (require)
+  {
+    files: ["jest.config.js"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "import/no-commonjs": "off",
+      "no-restricted-syntax": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;

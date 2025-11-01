@@ -3,5 +3,6 @@
  * @description Exportación de componentes de molecules
  */
 
-export { Card } from "./card";
+// Usar rutas explícitas para compatibilidad Windows/Linux (case-sensitive)
+export { Card } from "./card/index";
 export { BaseDialog } from "./dialog/base-dialog";

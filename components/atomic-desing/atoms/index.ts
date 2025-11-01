@@ -4,11 +4,12 @@
  */
 
 // Exportacion de componentes
-export { Button } from "./button";
-export { Input } from "./input";
-export { Typography } from "./typography";
+// Usar rutas explícitas para compatibilidad Windows/Linux (case-sensitive)
+export { Button } from "./button/index";
+export { Input } from "./input/index";
+export { Typography } from "./typography/index";
 
 // Exportacion de tipos
-export type { ButtonProps } from "./button";
-export type { TypographyProps } from "./typography";
-export type { InputProps } from "./input";
+export type { ButtonProps } from "./button/index";
+export type { TypographyProps } from "./typography/index";
+export type { InputProps } from "./input/index";
