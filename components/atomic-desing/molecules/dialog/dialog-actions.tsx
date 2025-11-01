@@ -30,7 +30,7 @@ export interface DialogActionsProps extends Omit<ButtonProps, "text" | "onClick"
   onConfirm?: () => void;
 }
 
-export const DialogActions = ({
+export const DialogActions: React.FC<DialogActionsProps> = ({
   extraClassName,
   showCancel = true,
   showConfirm = true,
@@ -39,7 +39,7 @@ export const DialogActions = ({
   onCancel,
   onConfirm,
   ...buttonProps
-}: DialogActionsProps) => {
+}) => {
   return (
     <div className={cn("flex items-center justify-center gap-5", extraClassName)}>
       {showCancel && (

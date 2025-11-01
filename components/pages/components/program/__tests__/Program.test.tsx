@@ -5,16 +5,19 @@ import { Program } from "../index";
 // Mock simplificado que solo verifica la lógica del componente
 jest.mock("@radix-ui/react-dialog", () => ({
   __esModule: true,
-  Root: ({ children }: { children: React.ReactNode }) => <div data-testid="radix-root">{children}</div>,
-  Content: ({ children }: { children: React.ReactNode }) => <div data-testid="radix-content">{children}</div>,
+  Root: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="radix-root">{children}</div>
+  ),
+  Content: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="radix-content">{children}</div>
+  ),
   Portal: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   Overlay: () => <div data-testid="radix-overlay" />,
 }));
 
 jest.mock("@/components/ui/dialog", () => ({
-  Dialog: ({ children, open }: { children: React.ReactNode; open: boolean }) => (
-    open ? <div data-testid="ui-dialog">{children}</div> : null
-  ),
+  Dialog: ({ children, open }: { children: React.ReactNode; open: boolean }) =>
+    open ? <div data-testid="ui-dialog">{children}</div> : null,
   DialogOverlay: () => <div data-testid="ui-overlay" />,
   DialogPortal: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
@@ -34,7 +37,11 @@ describe("Program", () => {
   });
 
   it("renderiza cuando open es true", () => {
-    render(<Program open={true} onOpenChange={mockOnOpenChange}>Contenido</Program>);
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
 
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
     expect(screen.getByText("Contenido")).toBeInTheDocument();
@@ -61,7 +68,11 @@ describe("Program", () => {
   });
 
   it("renderiza los botones de control cuando no hay titleBar personalizado", () => {
-    render(<Program open={true} onOpenChange={mockOnOpenChange}>Contenido</Program>);
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
 
     const minimizeButton = screen.getByLabelText("Minimizar");
     const maximizeButton = screen.getByLabelText("Maximizar");
@@ -74,7 +85,11 @@ describe("Program", () => {
 
   it("renderiza titleBar personalizado cuando se proporciona", () => {
     render(
-      <Program open={true} onOpenChange={mockOnOpenChange} titleBar={<div>TitleBar Personalizado</div>}>
+      <Program
+        open={true}
+        onOpenChange={mockOnOpenChange}
+        titleBar={<div>TitleBar Personalizado</div>}
+      >
         Contenido
       </Program>,
     );
@@ -85,7 +100,11 @@ describe("Program", () => {
   });
 
   it("minimiza la ventana al hacer clic en el botón minimizar", () => {
-    render(<Program open={true} onOpenChange={mockOnOpenChange}>Contenido</Program>);
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
 
     const minimizeButton = screen.getByLabelText("Minimizar");
     fireEvent.click(minimizeButton);
@@ -94,7 +113,11 @@ describe("Program", () => {
   });
 
   it("cierra la ventana al hacer clic en el botón cerrar", () => {
-    render(<Program open={true} onOpenChange={mockOnOpenChange}>Contenido</Program>);
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
 
     const closeButton = screen.getByLabelText("Cerrar");
     fireEvent.click(closeButton);
@@ -103,7 +126,11 @@ describe("Program", () => {
   });
 
   it("maximiza la ventana al hacer clic en el botón maximizar", () => {
-    render(<Program open={true} onOpenChange={mockOnOpenChange}>Contenido</Program>);
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
 
     const maximizeButton = screen.getByLabelText("Maximizar");
     fireEvent.click(maximizeButton);
@@ -114,7 +141,11 @@ describe("Program", () => {
   });
 
   it("restaura la ventana después de maximizarla", () => {
-    render(<Program open={true} onOpenChange={mockOnOpenChange}>Contenido</Program>);
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
 
     const maximizeButton = screen.getByLabelText("Maximizar");
     fireEvent.click(maximizeButton);
@@ -127,4 +158,3 @@ describe("Program", () => {
     expect(maximizeButtonAgain).toBeInTheDocument();
   });
 });
-

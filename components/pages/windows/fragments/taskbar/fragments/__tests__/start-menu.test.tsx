@@ -40,4 +40,3 @@ describe("StartMenu", () => {
     expect(menu?.tagName).toBe("SECTION");
   });
 });
-
