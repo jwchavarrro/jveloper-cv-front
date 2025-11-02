@@ -16,7 +16,8 @@ export interface TypographyProps {
     | "caption"
     | "small"
     | "lead"
-    | "large";
+    | "large"
+    | "paragraph";
   color?: "primary" | "secondary" | "muted" | "destructive" | "success" | "warning";
   weight?: "light" | "normal" | "medium" | "semibold" | "bold";
   align?: "left" | "center" | "right" | "justify";
@@ -45,6 +46,7 @@ export const Typography: React.FC<TypographyProps> = ({
     large: "text-lg font-semibold font-text",
     caption: "text-sm font-medium leading-none font-text",
     small: "text-sm font-medium font-text",
+    paragraph: "text-xs font-normal font-text",
   };
 
   const colorClasses = {
