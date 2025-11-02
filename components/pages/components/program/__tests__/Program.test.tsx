@@ -49,7 +49,7 @@ describe("Program", () => {
 
   it("renderiza el header cuando se proporciona", () => {
     render(
-      <Program open={true} onOpenChange={mockOnOpenChange} header={<div>Mi Header</div>}>
+      <Program open={true} onOpenChange={mockOnOpenChange} headerCustom={<div>Mi Header</div>}>
         Contenido
       </Program>,
     );
@@ -59,7 +59,7 @@ describe("Program", () => {
 
   it("renderiza el footer cuando se proporciona", () => {
     render(
-      <Program open={true} onOpenChange={mockOnOpenChange} footer={<div>Mi Footer</div>}>
+      <Program open={true} onOpenChange={mockOnOpenChange} footerCustom={<div>Mi Footer</div>}>
         Contenido
       </Program>,
     );
@@ -67,7 +67,7 @@ describe("Program", () => {
     expect(screen.getByText("Mi Footer")).toBeInTheDocument();
   });
 
-  it("renderiza los botones de control cuando no hay titleBar personalizado", () => {
+  it("renderiza los botones de control por defecto", () => {
     render(
       <Program open={true} onOpenChange={mockOnOpenChange}>
         Contenido
@@ -81,22 +81,6 @@ describe("Program", () => {
     expect(minimizeButton).toBeInTheDocument();
     expect(maximizeButton).toBeInTheDocument();
     expect(closeButton).toBeInTheDocument();
-  });
-
-  it("renderiza titleBar personalizado cuando se proporciona", () => {
-    render(
-      <Program
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        titleBar={<div>TitleBar Personalizado</div>}
-      >
-        Contenido
-      </Program>,
-    );
-
-    expect(screen.getByText("TitleBar Personalizado")).toBeInTheDocument();
-    // No debería haber botones de control por defecto
-    expect(screen.queryByLabelText("Minimizar")).not.toBeInTheDocument();
   });
 
   it("minimiza la ventana al hacer clic en el botón minimizar", () => {
