@@ -11,16 +11,19 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Dialog, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
 import { Minus, Maximize2, Minimize2, X } from "lucide-react";
 
+// Import of components custom
+import { Button, Typography } from "@/components/atomic-desing/atoms";
+
 // Import of utilities
 import { cn } from "@/lib/utils";
 
 interface ProgramProps {
-  children: React.ReactNode;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  header?: React.ReactNode;
-  titleBar?: React.ReactNode;
-  footer?: React.ReactNode;
+  title?: string;
+  headerCustom?: React.ReactNode;
+  children: React.ReactNode;
+  footerCustom?: React.ReactNode;
 }
 
 enum WindowState {
@@ -32,12 +35,12 @@ enum WindowState {
 }
 
 export const Program = ({
-  children,
   open: externalOpen,
   onOpenChange,
-  header,
-  titleBar,
-  footer,
+  title = "Program",
+  headerCustom,
+  children,
+  footerCustom,
 }: ProgramProps) => {
   // Estado único que maneja los 3 estados posibles
   const [windowState, setWindowState] = useState<WindowState>(WindowState.IDLE);
@@ -102,61 +105,71 @@ export const Program = ({
         <DialogOverlay className="bg-transparent" />
         <DialogPrimitive.Content
           className={cn(
-            "border-border bg-card data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] fixed top-[50%] left-[50%] z-50 w-full max-w-5xl translate-x-[-50%] translate-y-[-50%] border shadow-2xl",
+            "border-border bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] fixed top-[50%] left-[50%] z-50 w-full max-w-5xl translate-x-[-50%] translate-y-[-50%] border shadow-2xl",
             isMaximized && "top-0 left-0 h-full w-full max-w-full translate-x-0 translate-y-0",
           )}
           onInteractOutside={(e) => e.preventDefault()}
           onEscapeKeyDown={(e) => e.preventDefault()}
         >
           {/* Barra de título */}
-          {titleBar ? (
-            titleBar
-          ) : (
-            <div className="border-border bg-secondary flex h-8 items-center justify-between border-b px-2">
-              {/* Área izquierda - Header */}
-              <div className="flex-1">{header}</div>
-
-              {/* Botones de control */}
-              <div className="flex items-center gap-1">
-                {/* Botón Minimizar */}
-                <button
-                  onClick={handleMinimize}
-                  className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
-                  aria-label="Minimizar"
-                >
-                  <Minus className="h-3.5 w-3.5" />
-                </button>
-
-                {/* Botón Maximizar/Restaurar */}
-                <button
-                  onClick={handleMaximize}
-                  className="text-foreground hover:bg-accent flex h-6 w-6 items-center justify-center transition-colors"
-                  aria-label={isMaximized ? "Restaurar" : "Maximizar"}
-                >
-                  {isMaximized ? (
-                    <Minimize2 className="h-3.5 w-3.5" />
-                  ) : (
-                    <Maximize2 className="h-3.5 w-3.5" />
-                  )}
-                </button>
-
-                {/* Botón Cerrar */}
-                <button
-                  onClick={handleClose}
-                  className="text-foreground hover:bg-destructive hover:text-destructive-foreground flex h-6 w-6 items-center justify-center transition-colors"
-                  aria-label="Cerrar"
-                >
-                  <X className="h-3.5 w-3.5" />
-                </button>
+          <div className="flex h-7 items-center justify-between overflow-hidden border-b pl-2">
+            {/* Área izquierda - Header */}
+            {headerCustom ? (
+              <div className="flex-1">{headerCustom}</div>
+            ) : (
+              <div>
+                <Typography variant="small" color="muted">
+                  {title}
+                </Typography>
               </div>
+            )}
+
+            {/* Botones de control */}
+            <div className="flex items-center">
+              {/* Botón Minimizar */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-accent/10 rounded-none text-white hover:text-white"
+                onClick={handleMinimize}
+                aria-label="Minimizar"
+              >
+                <Minus className="h-3.5 w-3.5" />
+              </Button>
+
+              {/* Botón Maximizar/Restaurar */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-accent/10 rounded-none text-white hover:text-white"
+                onClick={handleMaximize}
+                aria-label={isMaximized ? "Restaurar" : "Maximizar"}
+              >
+                {isMaximized ? (
+                  <Minimize2 className="h-3.5 w-3.5" />
+                ) : (
+                  <Maximize2 className="h-3.5 w-3.5" />
+                )}
+              </Button>
+
+              {/* Botón Cerrar */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="hover:bg-destructive hover:text-destructive-foreground rounded-none text-white"
+                onClick={handleClose}
+                aria-label="Cerrar"
+              >
+                <X className="h-3.5 w-3.5" />
+              </Button>
             </div>
-          )}
+          </div>
 
           {/* Área de contenido */}
-          <div className="bg-background h-full min-h-96">{children}</div>
+          <div className="h-full min-h-96">{children}</div>
 
           {/* Footer */}
-          {footer && <div>{footer}</div>}
+          {footerCustom && <div>{footerCustom}</div>}
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>
