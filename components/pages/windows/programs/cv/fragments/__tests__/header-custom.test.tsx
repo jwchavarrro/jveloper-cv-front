@@ -6,7 +6,7 @@ describe("HeaderCustom", () => {
   it("renderiza el componente HeaderCustom", () => {
     render(<HeaderCustom />);
 
-    expect(screen.getByText("CV")).toBeInTheDocument();
+    expect(screen.getByText("CV - John Chavarro Urrea")).toBeInTheDocument();
   });
 
   it("renderiza el título completo del CV", () => {
@@ -15,11 +15,10 @@ describe("HeaderCustom", () => {
     expect(screen.getByText("CV - John Chavarro Urrea")).toBeInTheDocument();
   });
 
-  it("el badge CV tiene las clases correctas", () => {
+  it("renderiza el emoji badge", () => {
     render(<HeaderCustom />);
 
-    const cvBadge = screen.getByText("CV").closest("p");
-    expect(cvBadge).toHaveClass("bg-primary", "rounded", "p-1");
+    expect(screen.getByText("🔷")).toBeInTheDocument();
   });
 
   it("contiene un contenedor flex con gap", () => {

@@ -26,6 +26,7 @@ const customJestConfig = {
     ),
     "^@/(.*)$": normalizePath("<rootDir>/$1"),
   },
+  transformIgnorePatterns: ["node_modules/(?!(react-resizable-panels)/)"],
   collectCoverageFrom: [
     "components/atomic-desing/**/*.{js,jsx,ts,tsx}",
     "components/pages/**/*.{js,jsx,ts,tsx}",

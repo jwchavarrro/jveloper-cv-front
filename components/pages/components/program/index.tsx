@@ -130,37 +130,33 @@ export const Program = ({
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:bg-accent/10 rounded-none text-white hover:text-white"
+                className="hover:bg-accent text-foreground hover:text-foreground rounded-none"
                 onClick={handleMinimize}
                 aria-label="Minimizar"
               >
-                <Minus className="h-3.5 w-3.5" />
+                <Minus />
               </Button>
 
               {/* Botón Maximizar/Restaurar */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:bg-accent/10 rounded-none text-white hover:text-white"
+                className="hover:bg-accent text-foreground hover:text-foreground rounded-none"
                 onClick={handleMaximize}
                 aria-label={isMaximized ? "Restaurar" : "Maximizar"}
               >
-                {isMaximized ? (
-                  <Minimize2 className="h-3.5 w-3.5" />
-                ) : (
-                  <Maximize2 className="h-3.5 w-3.5" />
-                )}
+                {isMaximized ? <Minimize2 /> : <Maximize2 />}
               </Button>
 
               {/* Botón Cerrar */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="hover:bg-destructive hover:text-destructive-foreground rounded-none text-white"
+                className="hover:bg-destructive hover:text-destructive-foreground text-foreground rounded-none"
                 onClick={handleClose}
                 aria-label="Cerrar"
               >
-                <X className="h-3.5 w-3.5" />
+                <X />
               </Button>
             </div>
           </div>
@@ -169,7 +165,7 @@ export const Program = ({
           <div className="h-full min-h-96">{children}</div>
 
           {/* Footer */}
-          {footerCustom && <div>{footerCustom}</div>}
+          {footerCustom && <div className="h-5 border-t">{footerCustom}</div>}
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>

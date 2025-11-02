@@ -10,7 +10,7 @@ import { Typography } from "@/components/atomic-desing/atoms";
 export const FooterCustom = () => {
   return (
     <div className="flex items-center gap-2">
-      <Typography variant="small" color="muted">
+      <Typography variant="paragraph" color="muted">
         CV - John Chavarro Urrea
       </Typography>
     </div>
