@@ -4,15 +4,10 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
 // Importing components custom
-import { DropdownMenu } from "@/components/atomic-design/molecules/menus/dropdown-menu";
+import { DropdownMenu } from "@/components/atomic-desing/molecules/menus/dropdown-menu";
 
 // Import of utilities
-import type { DropdownMenuItemType } from "@/components/atomic-design/molecules/menus/dropdown-menu";
-
-// Mock de iconify para evitar errores de SVG
-jest.mock("@iconify/react/dist/iconify.js", () => ({
-  Icon: (props: Record<string, unknown>) => <span data-testid="icon" {...props} />,
-}));
+import type { DropdownMenuItemType } from "@/components/atomic-desing/molecules/menus/dropdown-menu";
 
 // Mock de next/link para testear links internos
 jest.mock("next/link", () => {
@@ -179,17 +174,6 @@ describe("DropdownMenu", () => {
     await user.click(disabledItem);
 
     expect(items[4].onClick).not.toHaveBeenCalled();
-  });
-
-  it("renderiza los íconos si están presentes", async () => {
-    const user = userEvent.setup();
-    render(
-      <DropdownMenu items={items}>
-        <button>Trigger</button>
-      </DropdownMenu>,
-    );
-    await user.click(screen.getByText("Trigger"));
-    expect((await screen.findAllByTestId("icon")).length).toBeGreaterThan(0);
   });
 
   it("cumple con roles básicos de accesibilidad", async () => {

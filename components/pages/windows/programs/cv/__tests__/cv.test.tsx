@@ -24,6 +24,23 @@ jest.mock("@/components/pages/components/program", () => ({
     ) : null,
 }));
 
+// Mock de react-resizable-panels
+jest.mock("@/components/ui/resizable", () => ({
+  ResizablePanelGroup: ({ children, direction, ...props }: React.ComponentProps<"div"> & { direction?: string }) => (
+    <div data-testid="resizable-panel-group" {...props}>
+      {children}
+    </div>
+  ),
+  ResizablePanel: ({ children, minSize, maxSize, ...props }: React.ComponentProps<"div"> & { minSize?: number; maxSize?: number }) => (
+    <div data-testid="resizable-panel" {...props}>
+      {children}
+    </div>
+  ),
+  ResizableHandle: (props: React.ComponentProps<"div">) => (
+    <div data-testid="resizable-handle" {...props} />
+  ),
+}));
+
 describe("CVProgram", () => {
   it("renderiza el componente CVProgram", () => {
     render(<CVProgram />);
@@ -31,10 +48,20 @@ describe("CVProgram", () => {
     expect(screen.getByTestId("program-mock")).toBeInTheDocument();
   });
 
-  it("renderiza el contenido del programa", () => {
+  it("renderiza los paneles redimensionables", () => {
     render(<CVProgram />);
 
-    expect(screen.getByText("Contenido")).toBeInTheDocument();
+    expect(screen.getByTestId("resizable-panel-group")).toBeInTheDocument();
+    const panels = screen.getAllByTestId("resizable-panel");
+    expect(panels.length).toBeGreaterThan(0);
+  });
+
+  it("renderiza los componentes SidebarPanelPrimary, Editor e IAPanel", () => {
+    render(<CVProgram />);
+
+    expect(screen.getByText("SidebarPanelPrimary")).toBeInTheDocument();
+    expect(screen.getByText("Editor")).toBeInTheDocument();
+    expect(screen.getByText("IAPanel")).toBeInTheDocument();
   });
 
   it("renderiza el HeaderCustom", () => {
@@ -42,11 +69,15 @@ describe("CVProgram", () => {
 
     const headerSection = screen.getByTestId("header-section");
     expect(headerSection).toBeInTheDocument();
-    expect(screen.getByText("CV")).toBeInTheDocument();
 
-    // Verificar que existe en el header
-    const allText = screen.getAllByText("CV - John Chavarro Urrea");
-    expect(allText.length).toBeGreaterThan(0);
+    // Verificar que existe el título en el header (usar getAllByText porque aparece también en footer)
+    const titles = screen.getAllByText("CV - John Chavarro Urrea");
+    expect(titles.length).toBeGreaterThan(0);
+    // Verificar que al menos uno está en el header
+    const headerTitle = Array.from(headerSection.querySelectorAll("p")).find(
+      (p) => p.textContent === "CV - John Chavarro Urrea"
+    );
+    expect(headerTitle).toBeInTheDocument();
   });
 
   it("renderiza el FooterCustom", () => {
