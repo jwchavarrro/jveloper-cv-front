@@ -16,8 +16,16 @@ jest.mock("@radix-ui/react-dialog", () => ({
 }));
 
 jest.mock("@/components/ui/dialog", () => ({
-  Dialog: ({ children, open }: { children: React.ReactNode; open: boolean }) =>
-    open ? <div data-testid="ui-dialog">{children}</div> : null,
+  Dialog: ({
+    children,
+    open,
+  }: {
+    children: React.ReactNode;
+    open: boolean;
+    onOpenChange?: (open: boolean) => void;
+  }) => {
+    return open ? <div data-testid="ui-dialog">{children}</div> : null;
+  },
   DialogOverlay: () => <div data-testid="ui-overlay" />,
   DialogPortal: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
@@ -30,7 +38,11 @@ describe("Program", () => {
   });
 
   it("no renderiza cuando open es false", () => {
-    const { container } = render(<Program open={false} onOpenChange={mockOnOpenChange} />);
+    const { container } = render(
+      <Program open={false} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
 
     // El componente retorna null cuando está cerrado o minimizado
     expect(container.firstChild).toBeNull();
@@ -117,11 +129,14 @@ describe("Program", () => {
     );
 
     const maximizeButton = screen.getByLabelText("Maximizar");
+    expect(maximizeButton).toBeInTheDocument();
+
     fireEvent.click(maximizeButton);
 
     // Después de maximizar, debería cambiar a "Restaurar"
     const restoreButton = screen.getByLabelText("Restaurar");
     expect(restoreButton).toBeInTheDocument();
+    expect(screen.queryByLabelText("Maximizar")).not.toBeInTheDocument();
   });
 
   it("restaura la ventana después de maximizarla", () => {
@@ -140,5 +155,38 @@ describe("Program", () => {
     // Debería volver a "Maximizar"
     const maximizeButtonAgain = screen.getByLabelText("Maximizar");
     expect(maximizeButtonAgain).toBeInTheDocument();
+    expect(screen.queryByLabelText("Restaurar")).not.toBeInTheDocument();
+  });
+
+  it("renderiza el título por defecto cuando no se proporciona headerCustom", () => {
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange} title="Mi Programa">
+        Contenido
+      </Program>,
+    );
+
+    expect(screen.getByText("Mi Programa")).toBeInTheDocument();
+  });
+
+  it("usa el título por defecto 'Program' cuando no se especifica", () => {
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
+
+    expect(screen.getByText("Program")).toBeInTheDocument();
+  });
+
+  it("no renderiza el footer cuando no se proporciona", () => {
+    const { container } = render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
+
+    // No debería haber footer
+    const footerElement = container.querySelector('[data-testid="footer-section"]');
+    expect(footerElement).not.toBeInTheDocument();
   });
 });
