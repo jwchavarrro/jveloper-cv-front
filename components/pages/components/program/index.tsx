@@ -21,9 +21,10 @@ interface ProgramProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title?: string;
-  headerCustom?: React.ReactNode;
+  header?: React.ReactNode;
   children: React.ReactNode;
-  footerCustom?: React.ReactNode;
+  footer?: React.ReactNode;
+  titleBar?: React.ReactNode;
 }
 
 enum WindowState {
@@ -38,9 +39,10 @@ export const Program = ({
   open: externalOpen,
   onOpenChange,
   title = "Program",
-  headerCustom,
+  header,
   children,
-  footerCustom,
+  footer,
+  titleBar,
 }: ProgramProps) => {
   // Estado único que maneja los 3 estados posibles
   const [windowState, setWindowState] = useState<WindowState>(WindowState.IDLE);
@@ -112,64 +114,68 @@ export const Program = ({
           onEscapeKeyDown={(e) => e.preventDefault()}
         >
           {/* Barra de título */}
-          <div className="flex h-7 items-center justify-between overflow-hidden border-b pl-2">
-            {/* Área izquierda - Header */}
-            {headerCustom ? (
-              <div className="flex-1">{headerCustom}</div>
-            ) : (
-              <div>
-                <Typography variant="small" color="muted">
-                  {title}
-                </Typography>
+          {titleBar ? (
+            <div>{titleBar}</div>
+          ) : (
+            <div className="flex h-7 items-center justify-between overflow-hidden border-b pl-2">
+              {/* Área izquierda - Header */}
+              {header ? (
+                <div className="flex-1">{header}</div>
+              ) : (
+                <div>
+                  <Typography variant="small" color="muted">
+                    {title}
+                  </Typography>
+                </div>
+              )}
+
+              {/* Botones de control */}
+              <div className="flex items-center">
+                {/* Botón Minimizar */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-accent/10 rounded-none text-white hover:text-white"
+                  onClick={handleMinimize}
+                  aria-label="Minimizar"
+                >
+                  <Minus className="h-3.5 w-3.5" />
+                </Button>
+
+                {/* Botón Maximizar/Restaurar */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-accent/10 rounded-none text-white hover:text-white"
+                  onClick={handleMaximize}
+                  aria-label={isMaximized ? "Restaurar" : "Maximizar"}
+                >
+                  {isMaximized ? (
+                    <Minimize2 className="h-3.5 w-3.5" />
+                  ) : (
+                    <Maximize2 className="h-3.5 w-3.5" />
+                  )}
+                </Button>
+
+                {/* Botón Cerrar */}
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-destructive hover:text-destructive-foreground rounded-none text-white"
+                  onClick={handleClose}
+                  aria-label="Cerrar"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </Button>
               </div>
-            )}
-
-            {/* Botones de control */}
-            <div className="flex items-center">
-              {/* Botón Minimizar */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:bg-accent/10 rounded-none text-white hover:text-white"
-                onClick={handleMinimize}
-                aria-label="Minimizar"
-              >
-                <Minus className="h-3.5 w-3.5" />
-              </Button>
-
-              {/* Botón Maximizar/Restaurar */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:bg-accent/10 rounded-none text-white hover:text-white"
-                onClick={handleMaximize}
-                aria-label={isMaximized ? "Restaurar" : "Maximizar"}
-              >
-                {isMaximized ? (
-                  <Minimize2 className="h-3.5 w-3.5" />
-                ) : (
-                  <Maximize2 className="h-3.5 w-3.5" />
-                )}
-              </Button>
-
-              {/* Botón Cerrar */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="hover:bg-destructive hover:text-destructive-foreground rounded-none text-white"
-                onClick={handleClose}
-                aria-label="Cerrar"
-              >
-                <X className="h-3.5 w-3.5" />
-              </Button>
             </div>
-          </div>
+          )}
 
           {/* Área de contenido */}
           <div className="h-full min-h-96">{children}</div>
 
           {/* Footer */}
-          {footerCustom && <div>{footerCustom}</div>}
+          {footer && <div>{footer}</div>}
         </DialogPrimitive.Content>
       </DialogPortal>
     </Dialog>
