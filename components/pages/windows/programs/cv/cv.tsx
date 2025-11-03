@@ -13,7 +13,7 @@ import { HeaderCustom, FooterCustom, SidebarPanelPrimary, Editor, IAPanel } from
 export const CVProgram = () => {
   return (
     <Program
-      open={true}
+      open={false}
       onOpenChange={() => {}}
       headerCustom={<HeaderCustom />}
       footerCustom={<FooterCustom />}
