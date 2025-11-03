@@ -26,12 +26,21 @@ jest.mock("@/components/pages/components/program", () => ({
 
 // Mock de react-resizable-panels
 jest.mock("@/components/ui/resizable", () => ({
-  ResizablePanelGroup: ({ children, direction, ...props }: React.ComponentProps<"div"> & { direction?: string }) => (
+  ResizablePanelGroup: ({
+    children,
+    direction,
+    ...props
+  }: React.ComponentProps<"div"> & { direction?: string }) => (
     <div data-testid="resizable-panel-group" {...props}>
       {children}
     </div>
   ),
-  ResizablePanel: ({ children, minSize, maxSize, ...props }: React.ComponentProps<"div"> & { minSize?: number; maxSize?: number }) => (
+  ResizablePanel: ({
+    children,
+    minSize,
+    maxSize,
+    ...props
+  }: React.ComponentProps<"div"> & { minSize?: number; maxSize?: number }) => (
     <div data-testid="resizable-panel" {...props}>
       {children}
     </div>
@@ -75,7 +84,7 @@ describe("CVProgram", () => {
     expect(titles.length).toBeGreaterThan(0);
     // Verificar que al menos uno está en el header
     const headerTitle = Array.from(headerSection.querySelectorAll("p")).find(
-      (p) => p.textContent === "CV - John Chavarro Urrea"
+      (p) => p.textContent === "CV - John Chavarro Urrea",
     );
     expect(headerTitle).toBeInTheDocument();
   });

@@ -16,4 +16,3 @@ describe("taskbar/index", () => {
     expect(typeof Taskbar).toBe("function");
   });
 });
-

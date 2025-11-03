@@ -18,4 +18,3 @@ describe("SidebarPanelPrimary", () => {
     expect(wrapper).toHaveProperty("tagName", "DIV");
   });
 });
-

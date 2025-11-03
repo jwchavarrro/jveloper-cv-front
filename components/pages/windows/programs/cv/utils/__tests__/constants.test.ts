@@ -39,22 +39,22 @@ describe("constants", () => {
       MENU_HEADER.FRAGMENTS.CV_HEADER.MENU_ITEMS.forEach((menuItem) => {
         menuItem.items.forEach((item) => {
           expect(item).toHaveProperty("type");
-          
+
           if (item.type !== "separator") {
             expect(item).toHaveProperty("label");
             expect(typeof item.label).toBe("string");
           }
-          
+
           if (item.type === "action") {
             expect(item.onClick).toBeDefined();
             expect(typeof item.onClick).toBe("function");
           }
-          
+
           if (item.type === "submenu") {
             expect(item.items).toBeDefined();
             expect(Array.isArray(item.items)).toBe(true);
           }
-          
+
           if (item.type === "separator") {
             // Los separadores no tienen label ni onClick
             expect(item).not.toHaveProperty("onClick");
@@ -66,7 +66,7 @@ describe("constants", () => {
 
     it("debe contener los menús principales", () => {
       const menuNames = MENU_HEADER.FRAGMENTS.CV_HEADER.MENU_ITEMS.map((item) => item.name);
-      
+
       // Verificar que existen los menús principales esperados
       expect(menuNames).toContain("Archivo");
       expect(menuNames).toContain("Editar");
@@ -80,19 +80,19 @@ describe("constants", () => {
 
     it("debe tener items de acción en el menú Archivo", () => {
       const archivoMenu = MENU_HEADER.FRAGMENTS.CV_HEADER.MENU_ITEMS.find(
-        (item) => item.name === "Archivo"
+        (item) => item.name === "Archivo",
       );
-      
+
       expect(archivoMenu).toBeDefined();
       expect(archivoMenu?.items).toBeDefined();
-      
+
       const actionItems = archivoMenu?.items.filter((item) => item.type === "action");
       expect(actionItems && actionItems.length).toBeGreaterThan(0);
     });
 
     it("debe tener submenús", () => {
       const submenuItems: any[] = [];
-      
+
       MENU_HEADER.FRAGMENTS.CV_HEADER.MENU_ITEMS.forEach((menuItem) => {
         menuItem.items.forEach((item) => {
           if (item.type === "submenu") {
@@ -100,13 +100,13 @@ describe("constants", () => {
           }
         });
       });
-      
+
       expect(submenuItems.length).toBeGreaterThan(0);
     });
 
     it("debe tener separadores", () => {
       const separatorItems: any[] = [];
-      
+
       MENU_HEADER.FRAGMENTS.CV_HEADER.MENU_ITEMS.forEach((menuItem) => {
         menuItem.items.forEach((item) => {
           if (item.type === "separator") {
@@ -114,13 +114,13 @@ describe("constants", () => {
           }
         });
       });
-      
+
       expect(separatorItems.length).toBeGreaterThan(0);
     });
 
     it("debe poder ejecutar callbacks de acciones", () => {
       const consoleSpy = jest.spyOn(console, "log").mockImplementation();
-      
+
       MENU_HEADER.FRAGMENTS.CV_HEADER.MENU_ITEMS.forEach((menuItem) => {
         menuItem.items.forEach((item) => {
           if (item.type === "action" && item.onClick) {
@@ -128,10 +128,9 @@ describe("constants", () => {
           }
         });
       });
-      
+
       expect(consoleSpy).toHaveBeenCalled();
       consoleSpy.mockRestore();
     });
   });
 });
-

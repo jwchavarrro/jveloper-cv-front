@@ -46,4 +46,3 @@ export type ProgramName = string;
  * @description Átomo principal que contiene el estado de todos los programas abiertos
  */
 export const openProgramContext = context<WindowsState>({});
-

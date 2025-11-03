@@ -203,12 +203,12 @@ describe("Program", () => {
     );
 
     const dialog = screen.getByTestId("ui-dialog");
-    
+
     // Simular que el Dialog se cierra externamente (onOpenChange se llama con false)
     // Necesitamos acceder al handler del Dialog, pero como está mockeado,
     // verificamos que el componente maneja correctamente el estado
     fireEvent.click(screen.getByLabelText("Cerrar"));
-    
+
     expect(mockOnOpenChange).toHaveBeenCalledWith(false);
   });
 
@@ -221,7 +221,7 @@ describe("Program", () => {
 
     // Verificar que existe el contenido del diálogo
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
-    
+
     // El componente tiene onInteractOutside que previene el cierre
     // Esto se verifica por el hecho de que necesitamos hacer clic en cerrar
     const closeButton = screen.getByLabelText("Cerrar");
@@ -237,7 +237,7 @@ describe("Program", () => {
 
     // Verificar que el componente renderiza
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
-    
+
     // El escape key está prevenido, solo se puede cerrar con el botón
     const closeButton = screen.getByLabelText("Cerrar");
     expect(closeButton).toBeInTheDocument();
@@ -255,7 +255,7 @@ describe("Program", () => {
 
     // Verificar que cambió a "Restaurar"
     expect(screen.getByLabelText("Restaurar")).toBeInTheDocument();
-    
+
     // Verificar que el diálogo sigue presente
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
   });

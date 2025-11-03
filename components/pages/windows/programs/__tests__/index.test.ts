@@ -22,4 +22,3 @@ describe("programs/index", () => {
     expect(typeof CVProgram).toBe("function");
   });
 });
-
