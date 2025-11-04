@@ -71,7 +71,7 @@ describe("DesktopIcons", () => {
     );
   });
 
-  it("no renderiza iconos si el array está vacío", () => {
+  it("no renderiza iconos si el array está vacío", async () => {
     jest.resetModules();
     jest.doMock("@/components/pages/windows", () => ({
       PAGE_WINDOWS: {
