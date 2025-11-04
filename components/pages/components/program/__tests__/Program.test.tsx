@@ -28,6 +28,9 @@ jest.mock("@/components/ui/dialog", () => ({
     return open ? (
       <div data-testid="ui-dialog" data-onopenchange={!!onOpenChange}>
         {children}
+        <button data-testid="dialog-external-close" onClick={() => onOpenChange?.(false)}>
+          External Close
+        </button>
       </div>
     ) : null;
   },
@@ -258,5 +261,32 @@ describe("Program", () => {
 
     // Verificar que el diálogo sigue presente
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
+  });
+
+  it("maneja el cierre del Dialog cuando onOpenChange es llamado externamente", () => {
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
+
+    // Simular cierre externo del Dialog
+    const externalCloseButton = screen.getByTestId("dialog-external-close");
+    fireEvent.click(externalCloseButton);
+
+    expect(mockOnOpenChange).toHaveBeenCalledWith(false);
+    expect(mockOnOpenChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("no llama a onOpenChange cuando el Dialog se abre", () => {
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
+
+    // Verificar que el diálogo está abierto pero onOpenChange no se llamó
+    expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
+    expect(mockOnOpenChange).not.toHaveBeenCalled();
   });
 });

@@ -1,12 +1,16 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { CVProgram } from "../cv";
+
+// Mock functions para poder verificar las llamadas
+const mockCloseProgram = jest.fn();
+const mockGetWindowState = jest.fn(() => ({ isOpen: true, isMinimized: false }));
 
 // Mock del hook useWindowManager
 jest.mock("@/hooks", () => ({
   useWindowManager: () => ({
-    getWindowState: jest.fn(() => ({ isOpen: true, isMinimized: false })),
-    closeProgram: jest.fn(),
+    getWindowState: mockGetWindowState,
+    closeProgram: mockCloseProgram,
     openProgram: jest.fn(),
     windowsState: { cv: { isOpen: true, isMinimized: false } },
     toggleProgram: jest.fn(),
@@ -24,17 +28,22 @@ jest.mock("@/components/pages/components/program", () => ({
     headerCustom,
     footerCustom,
     open,
+    onOpenChange,
   }: {
     children: React.ReactNode;
     headerCustom?: React.ReactNode;
     footerCustom?: React.ReactNode;
     open: boolean;
+    onOpenChange?: (isOpen: boolean) => void;
   }) =>
     open ? (
       <div data-testid="program-mock">
         {headerCustom && <div data-testid="header-section">{headerCustom}</div>}
         <div data-testid="content-section">{children}</div>
         {footerCustom && <div data-testid="footer-section">{footerCustom}</div>}
+        <button data-testid="close-button" onClick={() => onOpenChange?.(false)}>
+          Close
+        </button>
       </div>
     ) : null,
 }));
@@ -75,6 +84,11 @@ jest.mock("@/components/ui/resizable", () => ({
 }));
 
 describe("CVProgram", () => {
+  beforeEach(() => {
+    mockCloseProgram.mockClear();
+    mockGetWindowState.mockReturnValue({ isOpen: true, isMinimized: false });
+  });
+
   it("renderiza el componente CVProgram", () => {
     render(<CVProgram />);
 
@@ -126,5 +140,23 @@ describe("CVProgram", () => {
 
     // Verificar que el componente se renderiza (está abierto)
     expect(screen.getByTestId("program-mock")).toBeInTheDocument();
+  });
+
+  it("llama a closeProgram cuando onOpenChange se ejecuta con false", () => {
+    render(<CVProgram />);
+
+    const closeButton = screen.getByTestId("close-button");
+    fireEvent.click(closeButton);
+
+    expect(mockCloseProgram).toHaveBeenCalledTimes(1);
+    expect(mockCloseProgram).toHaveBeenCalledWith("cv");
+  });
+
+  it("no renderiza el programa cuando está cerrado", () => {
+    mockGetWindowState.mockReturnValue({ isOpen: false, isMinimized: false });
+
+    render(<CVProgram />);
+
+    expect(screen.queryByTestId("program-mock")).not.toBeInTheDocument();
   });
 });
