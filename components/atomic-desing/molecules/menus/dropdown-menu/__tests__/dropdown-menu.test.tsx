@@ -4,10 +4,10 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
 // Importing components custom
-import { DropdownMenu } from "@/components/atomic-desing/molecules/menus/dropdown-menu";
+import { DropdownMenu } from "@/components/atomic-desing/molecules";
 
 // Import of utilities
-import type { DropdownMenuItemType } from "@/components/atomic-desing/molecules/menus/dropdown-menu";
+import type { DropdownMenuItemType } from "@/components/atomic-desing/molecules";
 
 // Mock de next/link para testear links internos
 jest.mock("next/link", () => {
@@ -40,30 +40,25 @@ describe("DropdownMenu", () => {
   const items: DropdownMenuItemType[] = [
     {
       label: "Acción",
-      icon: "mdi:pencil",
       type: "action",
       onClick: actionFn,
     },
     {
       label: "Link interno",
-      icon: "mdi:home",
       type: "link",
       href: "/home",
     },
     {
       label: "Link externo",
-      icon: "mdi:external",
       type: "link",
       href: "https://google.com",
     },
     {
       label: "Submenú",
-      icon: "mdi:menu",
       type: "submenu",
       items: [
         {
           label: "Subacción",
-          icon: "mdi:star",
           type: "action",
           onClick: jest.fn(),
         },
@@ -71,7 +66,6 @@ describe("DropdownMenu", () => {
     },
     {
       label: "Deshabilitado",
-      icon: "mdi:lock",
       type: "action",
       onClick: jest.fn(),
       disabled: true,

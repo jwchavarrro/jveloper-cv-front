@@ -28,6 +28,9 @@ jest.mock("@/components/ui/dialog", () => ({
     return open ? (
       <div data-testid="ui-dialog" data-onopenchange={!!onOpenChange}>
         {children}
+        <button data-testid="dialog-external-close" onClick={() => onOpenChange?.(false)}>
+          External Close
+        </button>
       </div>
     ) : null;
   },
@@ -203,12 +206,12 @@ describe("Program", () => {
     );
 
     const dialog = screen.getByTestId("ui-dialog");
-    
+
     // Simular que el Dialog se cierra externamente (onOpenChange se llama con false)
     // Necesitamos acceder al handler del Dialog, pero como está mockeado,
     // verificamos que el componente maneja correctamente el estado
     fireEvent.click(screen.getByLabelText("Cerrar"));
-    
+
     expect(mockOnOpenChange).toHaveBeenCalledWith(false);
   });
 
@@ -221,7 +224,7 @@ describe("Program", () => {
 
     // Verificar que existe el contenido del diálogo
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
-    
+
     // El componente tiene onInteractOutside que previene el cierre
     // Esto se verifica por el hecho de que necesitamos hacer clic en cerrar
     const closeButton = screen.getByLabelText("Cerrar");
@@ -237,7 +240,7 @@ describe("Program", () => {
 
     // Verificar que el componente renderiza
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
-    
+
     // El escape key está prevenido, solo se puede cerrar con el botón
     const closeButton = screen.getByLabelText("Cerrar");
     expect(closeButton).toBeInTheDocument();
@@ -255,8 +258,35 @@ describe("Program", () => {
 
     // Verificar que cambió a "Restaurar"
     expect(screen.getByLabelText("Restaurar")).toBeInTheDocument();
-    
+
     // Verificar que el diálogo sigue presente
     expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
+  });
+
+  it("maneja el cierre del Dialog cuando onOpenChange es llamado externamente", () => {
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
+
+    // Simular cierre externo del Dialog
+    const externalCloseButton = screen.getByTestId("dialog-external-close");
+    fireEvent.click(externalCloseButton);
+
+    expect(mockOnOpenChange).toHaveBeenCalledWith(false);
+    expect(mockOnOpenChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("no llama a onOpenChange cuando el Dialog se abre", () => {
+    render(
+      <Program open={true} onOpenChange={mockOnOpenChange}>
+        Contenido
+      </Program>,
+    );
+
+    // Verificar que el diálogo está abierto pero onOpenChange no se llamó
+    expect(screen.getByTestId("ui-dialog")).toBeInTheDocument();
+    expect(mockOnOpenChange).not.toHaveBeenCalled();
   });
 });

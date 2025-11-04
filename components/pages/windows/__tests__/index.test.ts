@@ -25,4 +25,3 @@ describe("windows/index", () => {
     expect(typeof StartMenu).toBe("function");
   });
 });
-

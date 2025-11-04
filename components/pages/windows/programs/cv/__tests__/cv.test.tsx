@@ -1,6 +1,25 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { CVProgram } from "../cv";
+
+// Mock functions para poder verificar las llamadas
+const mockCloseProgram = jest.fn();
+const mockGetWindowState = jest.fn(() => ({ isOpen: true, isMinimized: false }));
+
+// Mock del hook useWindowManager
+jest.mock("@/hooks", () => ({
+  useWindowManager: () => ({
+    getWindowState: mockGetWindowState,
+    closeProgram: mockCloseProgram,
+    openProgram: jest.fn(),
+    windowsState: { cv: { isOpen: true, isMinimized: false } },
+    toggleProgram: jest.fn(),
+    minimizeProgram: jest.fn(),
+    restoreProgram: jest.fn(),
+    maximizeProgram: jest.fn(),
+    getOpenPrograms: jest.fn(() => ["cv"]),
+  }),
+}));
 
 // Mock del componente Program
 jest.mock("@/components/pages/components/program", () => ({
@@ -9,29 +28,52 @@ jest.mock("@/components/pages/components/program", () => ({
     headerCustom,
     footerCustom,
     open,
+    onOpenChange,
   }: {
     children: React.ReactNode;
     headerCustom?: React.ReactNode;
     footerCustom?: React.ReactNode;
     open: boolean;
+    onOpenChange?: (isOpen: boolean) => void;
   }) =>
     open ? (
       <div data-testid="program-mock">
         {headerCustom && <div data-testid="header-section">{headerCustom}</div>}
         <div data-testid="content-section">{children}</div>
         {footerCustom && <div data-testid="footer-section">{footerCustom}</div>}
+        <button data-testid="close-button" onClick={() => onOpenChange?.(false)}>
+          Close
+        </button>
       </div>
     ) : null,
 }));
 
+// Mock de los fragmentos del programa CV
+jest.mock("../fragments", () => ({
+  HeaderCustom: () => <div>CV - John Chavarro Urrea</div>,
+  FooterCustom: () => <div>CV - John Chavarro Urrea</div>,
+  SidebarPanelPrimary: () => <div>SidebarPanelPrimary</div>,
+  Editor: () => <div>Editor</div>,
+  IAPanel: () => <div>IAPanel</div>,
+}));
+
 // Mock de react-resizable-panels
 jest.mock("@/components/ui/resizable", () => ({
-  ResizablePanelGroup: ({ children, direction, ...props }: React.ComponentProps<"div"> & { direction?: string }) => (
+  ResizablePanelGroup: ({
+    children,
+    direction,
+    ...props
+  }: React.ComponentProps<"div"> & { direction?: string }) => (
     <div data-testid="resizable-panel-group" {...props}>
       {children}
     </div>
   ),
-  ResizablePanel: ({ children, minSize, maxSize, ...props }: React.ComponentProps<"div"> & { minSize?: number; maxSize?: number }) => (
+  ResizablePanel: ({
+    children,
+    minSize,
+    maxSize,
+    ...props
+  }: React.ComponentProps<"div"> & { minSize?: number; maxSize?: number }) => (
     <div data-testid="resizable-panel" {...props}>
       {children}
     </div>
@@ -42,6 +84,11 @@ jest.mock("@/components/ui/resizable", () => ({
 }));
 
 describe("CVProgram", () => {
+  beforeEach(() => {
+    mockCloseProgram.mockClear();
+    mockGetWindowState.mockReturnValue({ isOpen: true, isMinimized: false });
+  });
+
   it("renderiza el componente CVProgram", () => {
     render(<CVProgram />);
 
@@ -70,14 +117,11 @@ describe("CVProgram", () => {
     const headerSection = screen.getByTestId("header-section");
     expect(headerSection).toBeInTheDocument();
 
-    // Verificar que existe el título en el header (usar getAllByText porque aparece también en footer)
+    // Verificar que existe el título en el header
     const titles = screen.getAllByText("CV - John Chavarro Urrea");
     expect(titles.length).toBeGreaterThan(0);
     // Verificar que al menos uno está en el header
-    const headerTitle = Array.from(headerSection.querySelectorAll("p")).find(
-      (p) => p.textContent === "CV - John Chavarro Urrea"
-    );
-    expect(headerTitle).toBeInTheDocument();
+    expect(headerSection.textContent).toContain("CV - John Chavarro Urrea");
   });
 
   it("renderiza el FooterCustom", () => {
@@ -96,5 +140,23 @@ describe("CVProgram", () => {
 
     // Verificar que el componente se renderiza (está abierto)
     expect(screen.getByTestId("program-mock")).toBeInTheDocument();
+  });
+
+  it("llama a closeProgram cuando onOpenChange se ejecuta con false", () => {
+    render(<CVProgram />);
+
+    const closeButton = screen.getByTestId("close-button");
+    fireEvent.click(closeButton);
+
+    expect(mockCloseProgram).toHaveBeenCalledTimes(1);
+    expect(mockCloseProgram).toHaveBeenCalledWith("cv");
+  });
+
+  it("no renderiza el programa cuando está cerrado", () => {
+    mockGetWindowState.mockReturnValue({ isOpen: false, isMinimized: false });
+
+    render(<CVProgram />);
+
+    expect(screen.queryByTestId("program-mock")).not.toBeInTheDocument();
   });
 });

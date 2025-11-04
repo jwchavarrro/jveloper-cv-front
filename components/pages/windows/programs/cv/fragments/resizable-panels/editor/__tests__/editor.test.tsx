@@ -18,4 +18,3 @@ describe("Editor", () => {
     expect(wrapper).toHaveProperty("tagName", "DIV");
   });
 });
-

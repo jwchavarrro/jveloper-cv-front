@@ -10,11 +10,21 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import { Program } from "@/components/pages/components/program";
 import { HeaderCustom, FooterCustom, SidebarPanelPrimary, Editor, IAPanel } from "./fragments";
 
+// Import of hooks
+import { useWindowManager } from "@/hooks";
+
 export const CVProgram = () => {
+  const { getWindowState, closeProgram } = useWindowManager();
+  const cvState = getWindowState("cv");
+
   return (
     <Program
-      open={true}
-      onOpenChange={() => {}}
+      open={cvState.isOpen}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          closeProgram("cv");
+        }
+      }}
       headerCustom={<HeaderCustom />}
       footerCustom={<FooterCustom />}
     >
