@@ -4,10 +4,16 @@
  * @module fragments/taskbar
  */
 
+"use client";
+
 import { Search } from "lucide-react";
 
 // Import of utilities
 import { PAGE_WINDOWS } from "@/components/pages/windows";
+import { cn } from "@/lib/utils";
+
+// Import of hooks
+import { useWindowManager } from "@/hooks";
 
 interface TaskbarProps {
   showStartMenu: boolean;
@@ -16,11 +22,48 @@ interface TaskbarProps {
 
 export const Taskbar = ({ showStartMenu, setShowStartMenu }: TaskbarProps) => {
   /**
-   * @constant taskbarApps
-   * @description Aplicaciones en la barra de tareas
-   * @type {Array<{name: string, icon: string, isActive: boolean}>}
+   * @constant useWindowManager
+   * @description Hook para manejar el estado de las ventanas de programas
    */
-  const taskbarApps = PAGE_WINDOWS.FRAGMENTS.TASKBAR.APPS;
+  const { getOpenPrograms, getWindowState, restoreProgram, minimizeProgram } = useWindowManager();
+
+  /**
+   * @constant openPrograms
+   * @description Programas abiertos
+   */
+  const openPrograms = getOpenPrograms();
+
+  /**
+   * @constant openProgramsInfo
+   * @description Información de los programas abiertos (nombre, icono, etc.)
+   */
+  const openProgramsInfo = openPrograms.map((programId) => {
+    const programInfo = PAGE_WINDOWS.FRAGMENTS.DESKTOP.ICONS.find(
+      (icon) => icon.programId === programId,
+    );
+    const windowState = getWindowState(programId);
+
+    return {
+      programId,
+      name: programInfo?.name || programId,
+      icon: programInfo?.icon || "📄",
+      isMinimized: windowState.isMinimized,
+    };
+  });
+
+  /**
+   * @function handleProgramClick
+   * @description Maneja el click en un programa de la taskbar
+   * @param {string} programId - ID del programa
+   */
+  const handleProgramClick = (programId: string) => {
+    const windowState = getWindowState(programId);
+    if (windowState.isMinimized) {
+      restoreProgram(programId);
+    } else {
+      minimizeProgram(programId);
+    }
+  };
   return (
     <section className="border-border bg-background/80 absolute right-0 bottom-0 left-0 h-12 border-t backdrop-blur-md">
       <div className="flex h-full items-center justify-between pl-2">
@@ -28,9 +71,10 @@ export const Taskbar = ({ showStartMenu, setShowStartMenu }: TaskbarProps) => {
           {/* Botón Inicio */}
           <button
             onClick={() => setShowStartMenu(!showStartMenu)}
-            className={`text-foreground flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 ${
-              showStartMenu ? "bg-accent" : "hover:bg-accent/50"
-            }`}
+            className={cn(
+              "text-foreground flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200",
+              showStartMenu ? "bg-accent" : "hover:bg-accent/50",
+            )}
           >
             <span className="text-xl">🪟</span>
           </button>
@@ -45,16 +89,18 @@ export const Taskbar = ({ showStartMenu, setShowStartMenu }: TaskbarProps) => {
             />
           </div>
 
-          {/* Aplicaciones ancladas */}
+          {/* Aplicaciones abiertas */}
           <div className="ml-2 flex items-center space-x-1">
-            {taskbarApps.slice(1).map((app, index) => (
+            {openProgramsInfo.map((program) => (
               <button
-                key={index}
-                className={`text-foreground flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200 ${
-                  app.isActive ? "bg-accent" : "hover:bg-accent/50"
-                }`}
+                key={program.programId}
+                onClick={() => handleProgramClick(program.programId)}
+                className={cn(
+                  "text-foreground bg-accent/50 hover:bg-accent/80 flex h-10 w-10 items-center justify-center rounded-lg transition-all duration-200",
+                )}
+                title={program.name}
               >
-                <span className="text-lg">{app.icon}</span>
+                <span className="text-lg">{program.icon}</span>
               </button>
             ))}
           </div>
