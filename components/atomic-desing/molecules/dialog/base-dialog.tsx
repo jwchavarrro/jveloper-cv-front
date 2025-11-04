@@ -21,8 +21,12 @@
  */
 
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { DialogHeader, type DialogHeaderProps } from "./dialog-header";
-import { DialogFooter, type DialogFooterProps } from "./dialog-footer";
+import {
+  DialogHeader,
+  type DialogHeaderProps,
+  DialogFooter,
+  type DialogFooterProps,
+} from "@/components/atomic-desing/molecules";
 
 // Import of utilities
 import { cn } from "@/lib/utils";

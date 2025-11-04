@@ -18,4 +18,3 @@ describe("IAPanel", () => {
     expect(wrapper).toHaveProperty("tagName", "DIV");
   });
 });
-

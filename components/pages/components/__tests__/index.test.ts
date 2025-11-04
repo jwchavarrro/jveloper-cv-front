@@ -11,4 +11,3 @@ describe("components/index", () => {
     expect(typeof Program).toBe("function");
   });
 });
-

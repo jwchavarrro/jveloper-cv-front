@@ -9,7 +9,7 @@
 
 import { memo } from "react";
 import { DialogFooter as ShadcnDialogFooter } from "@/components/ui/dialog";
-import { DialogActions, type DialogActionsProps } from "./dialog-actions";
+import { DialogActions, type DialogActionsProps } from "@/components/atomic-desing/molecules";
 
 export interface DialogFooterProps extends DialogActionsProps {
   footer?: React.ReactNode;

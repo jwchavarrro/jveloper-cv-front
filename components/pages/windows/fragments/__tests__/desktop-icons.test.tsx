@@ -1,6 +1,24 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { DesktopIcons } from "../desktop-icons";
+
+// Mock functions para poder verificar las llamadas
+const mockOpenProgram = jest.fn();
+
+// Mock del hook useWindowManager
+jest.mock("@/hooks", () => ({
+  useWindowManager: () => ({
+    openProgram: mockOpenProgram,
+    closeProgram: jest.fn(),
+    getWindowState: jest.fn(() => ({ isOpen: false, isMinimized: false })),
+    windowsState: {},
+    toggleProgram: jest.fn(),
+    minimizeProgram: jest.fn(),
+    restoreProgram: jest.fn(),
+    maximizeProgram: jest.fn(),
+    getOpenPrograms: jest.fn(() => []),
+  }),
+}));
 
 // Mock de las constantes
 jest.mock("@/components/pages/windows", () => ({
@@ -11,7 +29,7 @@ jest.mock("@/components/pages/windows", () => ({
           { name: "Mi Equipo", icon: "🖥️", type: "folder" },
           { name: "Papelera", icon: "🗑️", type: "trash" },
           { name: "Documentos", icon: "📁", type: "folder" },
-          { name: "Jveloper", icon: "🔷", type: "app" },
+          { name: "Jveloper", icon: "🔷", type: "app", programId: "cv" },
         ],
       },
     },
@@ -19,6 +37,10 @@ jest.mock("@/components/pages/windows", () => ({
 }));
 
 describe("DesktopIcons", () => {
+  beforeEach(() => {
+    mockOpenProgram.mockClear();
+  });
+
   it("renderiza todos los iconos del escritorio", () => {
     render(<DesktopIcons />);
 
@@ -49,7 +71,7 @@ describe("DesktopIcons", () => {
     );
   });
 
-  it("no renderiza iconos si el array está vacío", () => {
+  it("no renderiza iconos si el array está vacío", async () => {
     jest.resetModules();
     jest.doMock("@/components/pages/windows", () => ({
       PAGE_WINDOWS: {
@@ -61,7 +83,7 @@ describe("DesktopIcons", () => {
       },
     }));
 
-    const { DesktopIcons: DesktopIconsEmpty } = require("../desktop-icons");
+    const { DesktopIcons: DesktopIconsEmpty } = await import("../desktop-icons");
     const { container } = render(<DesktopIconsEmpty />);
     const mainContainer = container.firstChild as HTMLElement;
 
@@ -81,5 +103,33 @@ describe("DesktopIcons", () => {
       "rounded-lg",
       "p-2",
     );
+  });
+
+  it("llama a openProgram cuando se hace clic en un icono de tipo app con programId", () => {
+    render(<DesktopIcons />);
+
+    const jveloperIcon = screen.getByText("Jveloper");
+    fireEvent.click(jveloperIcon);
+
+    expect(mockOpenProgram).toHaveBeenCalledTimes(1);
+    expect(mockOpenProgram).toHaveBeenCalledWith("cv");
+  });
+
+  it("no llama a openProgram cuando se hace clic en un icono que no es de tipo app", () => {
+    render(<DesktopIcons />);
+
+    const miEquipoIcon = screen.getByText("Mi Equipo");
+    fireEvent.click(miEquipoIcon);
+
+    expect(mockOpenProgram).not.toHaveBeenCalled();
+  });
+
+  it("no llama a openProgram cuando se hace clic en un icono sin programId", () => {
+    render(<DesktopIcons />);
+
+    const papeleraIcon = screen.getByText("Papelera");
+    fireEvent.click(papeleraIcon);
+
+    expect(mockOpenProgram).not.toHaveBeenCalled();
   });
 });

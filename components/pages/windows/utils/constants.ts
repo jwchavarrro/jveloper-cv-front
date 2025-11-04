@@ -1,38 +1,48 @@
 /**
  * @file constants.ts
- * @description Constantes utilizadas en la página de Dashboard
- * @module components/pages/dashboard/utils/constants
+ * @description Constantes utilizadas en la página de Windows
+ * @module components/pages/windows/utils/constants
  */
+
+// Import of types
+import type { PageWindowsConfig } from "./types";
 
 /**
  * @constant PAGE_WINDOWS
  * @description Página de windows
- * @type {Page}
+ * @type {PageWindowsConfig}
  */
-
-export const PAGE_WINDOWS = {
+export const PAGE_WINDOWS: PageWindowsConfig = {
   FRAGMENTS: {
     DESKTOP: {
       ICONS: [
         {
           name: "Mi Equipo",
           icon: "🖥️",
-          type: "folder",
+          type: "app" as const,
+          programId: "my-computer",
+          isActive: false,
         },
         {
           name: "Papelera",
           icon: "🗑️",
-          type: "trash",
+          type: "app" as const,
+          programId: "trash",
+          isActive: false,
         },
         {
           name: "Documentos",
           icon: "📁",
-          type: "folder",
+          type: "app" as const,
+          programId: "documents",
+          isActive: false,
         },
         {
-          name: "Jveloper",
+          name: "CV",
           icon: "🔷",
-          type: "app",
+          type: "app" as const,
+          programId: "cv",
+          isActive: false,
         },
       ],
     },
@@ -43,16 +53,6 @@ export const PAGE_WINDOWS = {
         {
           name: "Inicio",
           icon: "🪟",
-          isActive: false,
-        },
-        {
-          name: "Explorador",
-          icon: "📁",
-          isActive: false,
-        },
-        {
-          name: "Jveloper",
-          icon: "🔷",
           isActive: false,
         },
       ],

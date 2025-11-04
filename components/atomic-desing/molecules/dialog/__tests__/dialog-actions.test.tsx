@@ -30,7 +30,7 @@ jest.mock("@/components/atomic-desing/atoms/button", () => {
 
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { DialogActions } from "@/components/atomic-desing/molecules/dialog/dialog-actions";
+import { DialogActions } from "@/components/atomic-desing/molecules";
 
 describe("DialogActions", () => {
   it("renders both buttons by default", () => {

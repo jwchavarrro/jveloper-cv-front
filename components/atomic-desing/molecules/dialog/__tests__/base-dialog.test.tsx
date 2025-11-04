@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { BaseDialog } from "../base-dialog";
+import { BaseDialog } from "@/components/atomic-desing/molecules";
 
 // Mock de los componentes UI
 jest.mock("@/components/ui/dialog", () => ({
