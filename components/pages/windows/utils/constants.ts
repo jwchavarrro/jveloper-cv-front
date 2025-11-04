@@ -47,7 +47,38 @@ export const PAGE_WINDOWS: PageWindowsConfig = {
       ],
     },
 
-    START_MENU: {},
+    START_MENU: {
+      POWER_MENU_ITEMS: [
+        {
+          label: "Bloquear",
+          type: "action" as const,
+          onClick: () => console.log("Bloquear"),
+        },
+        {
+          label: "Suspender",
+          type: "action" as const,
+          onClick: () => console.log("Suspender"),
+        },
+        {
+          label: "Hibernar",
+          type: "action" as const,
+          onClick: () => console.log("Hibernar"),
+        },
+        {
+          type: "separator" as const,
+        },
+        {
+          label: "Apagar",
+          type: "action" as const,
+          onClick: () => console.log("Apagar"),
+        },
+        {
+          label: "Reiniciar",
+          type: "action" as const,
+          onClick: () => console.log("Reiniciar"),
+        },
+      ],
+    },
     TASKBAR: {
       APPS: [
         {

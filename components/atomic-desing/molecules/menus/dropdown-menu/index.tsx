@@ -100,7 +100,7 @@ export const DropdownMenu = ({ items, children, label }: DropdownMenuProps) => {
               {item.label}
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent className="min-w-64">
+              <DropdownMenuSubContent className="rounded-lg">
                 {renderMenuItems(item.items)}
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
@@ -142,7 +142,7 @@ export const DropdownMenu = ({ items, children, label }: DropdownMenuProps) => {
   return (
     <ShadDropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent className="min-w-56">
+      <DropdownMenuContent className="rounded-lg">
         {label && <DropdownMenuLabel>{label}</DropdownMenuLabel>}
         <DropdownMenuGroup>{renderMenuItems(items)}</DropdownMenuGroup>
       </DropdownMenuContent>
