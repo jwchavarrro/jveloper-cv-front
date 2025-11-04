@@ -11,6 +11,5 @@ export { PAGE_WINDOWS } from "./utils/constants";
 export { DesktopIcons } from "./fragments/desktop-icons";
 export { Taskbar, StartMenu } from "./fragments/taskbar";
 
-
 // Import of types
 export type { ProgramType, TaskbarApp, PageWindowsConfig, IconType } from "./utils/types";

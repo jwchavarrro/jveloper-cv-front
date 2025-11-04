@@ -7,7 +7,7 @@
 "use client";
 
 // Import of utilities
-import { PAGE_WINDOWS, type DesktopIcon } from "@/components/pages/windows";
+import { PAGE_WINDOWS, type ProgramType } from "@/components/pages/windows";
 
 // Import of hooks
 import { useWindowManager } from "@/hooks";
@@ -24,9 +24,9 @@ export const DesktopIcons = () => {
   /**
    * @function handleIconClick
    * @description Maneja el click en un icono del escritorio
-   * @param {DesktopIcon} icon - Icono clickeado
+   * @param {ProgramType} icon - Icono clickeado
    */
-  const handleIconClick = (icon: DesktopIcon) => {
+  const handleIconClick = (icon: ProgramType) => {
     if (icon.type === "app" && icon.programId) {
       openProgram(icon.programId);
     }

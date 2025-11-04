@@ -2,6 +2,21 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { DesktopIcons } from "../desktop-icons";
 
+// Mock del hook useWindowManager
+jest.mock("@/hooks", () => ({
+  useWindowManager: () => ({
+    openProgram: jest.fn(),
+    closeProgram: jest.fn(),
+    getWindowState: jest.fn(() => ({ isOpen: false, isMinimized: false })),
+    windowsState: {},
+    toggleProgram: jest.fn(),
+    minimizeProgram: jest.fn(),
+    restoreProgram: jest.fn(),
+    maximizeProgram: jest.fn(),
+    getOpenPrograms: jest.fn(() => []),
+  }),
+}));
+
 // Mock de las constantes
 jest.mock("@/components/pages/windows", () => ({
   PAGE_WINDOWS: {
@@ -11,7 +26,7 @@ jest.mock("@/components/pages/windows", () => ({
           { name: "Mi Equipo", icon: "🖥️", type: "folder" },
           { name: "Papelera", icon: "🗑️", type: "trash" },
           { name: "Documentos", icon: "📁", type: "folder" },
-          { name: "Jveloper", icon: "🔷", type: "app" },
+          { name: "Jveloper", icon: "🔷", type: "app", programId: "cv" },
         ],
       },
     },

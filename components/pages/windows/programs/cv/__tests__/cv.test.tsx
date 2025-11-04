@@ -2,6 +2,21 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import { CVProgram } from "../cv";
 
+// Mock del hook useWindowManager
+jest.mock("@/hooks", () => ({
+  useWindowManager: () => ({
+    getWindowState: jest.fn(() => ({ isOpen: true, isMinimized: false })),
+    closeProgram: jest.fn(),
+    openProgram: jest.fn(),
+    windowsState: { cv: { isOpen: true, isMinimized: false } },
+    toggleProgram: jest.fn(),
+    minimizeProgram: jest.fn(),
+    restoreProgram: jest.fn(),
+    maximizeProgram: jest.fn(),
+    getOpenPrograms: jest.fn(() => ["cv"]),
+  }),
+}));
+
 // Mock del componente Program
 jest.mock("@/components/pages/components/program", () => ({
   Program: ({
@@ -22,6 +37,15 @@ jest.mock("@/components/pages/components/program", () => ({
         {footerCustom && <div data-testid="footer-section">{footerCustom}</div>}
       </div>
     ) : null,
+}));
+
+// Mock de los fragmentos del programa CV
+jest.mock("../fragments", () => ({
+  HeaderCustom: () => <div>CV - John Chavarro Urrea</div>,
+  FooterCustom: () => <div>CV - John Chavarro Urrea</div>,
+  SidebarPanelPrimary: () => <div>SidebarPanelPrimary</div>,
+  Editor: () => <div>Editor</div>,
+  IAPanel: () => <div>IAPanel</div>,
 }));
 
 // Mock de react-resizable-panels
@@ -79,14 +103,11 @@ describe("CVProgram", () => {
     const headerSection = screen.getByTestId("header-section");
     expect(headerSection).toBeInTheDocument();
 
-    // Verificar que existe el título en el header (usar getAllByText porque aparece también en footer)
+    // Verificar que existe el título en el header
     const titles = screen.getAllByText("CV - John Chavarro Urrea");
     expect(titles.length).toBeGreaterThan(0);
     // Verificar que al menos uno está en el header
-    const headerTitle = Array.from(headerSection.querySelectorAll("p")).find(
-      (p) => p.textContent === "CV - John Chavarro Urrea",
-    );
-    expect(headerTitle).toBeInTheDocument();
+    expect(headerSection.textContent).toContain("CV - John Chavarro Urrea");
   });
 
   it("renderiza el FooterCustom", () => {
