@@ -43,7 +43,7 @@ const DesktopWindows = () => {
         <Taskbar showStartMenu={showStartMenu} setShowStartMenu={setShowStartMenu} />
 
         {/* Menú Inicio */}
-        {showStartMenu && <StartMenu />}
+        <StartMenu open={showStartMenu} onOpenChange={setShowStartMenu} />
       </div>
     </>
   );

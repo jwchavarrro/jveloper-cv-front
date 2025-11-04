@@ -94,6 +94,7 @@ export const useWindowManager = () => {
       ...prev,
       [programName]: {
         ...prev[programName],
+        isOpen: true,
         isMinimized: true,
       },
     }));

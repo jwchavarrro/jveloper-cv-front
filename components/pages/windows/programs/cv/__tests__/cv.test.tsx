@@ -4,6 +4,7 @@ import { CVProgram } from "../cv";
 
 // Mock functions para poder verificar las llamadas
 const mockCloseProgram = jest.fn();
+const mockMinimizeProgram = jest.fn();
 const mockGetWindowState = jest.fn(() => ({ isOpen: true, isMinimized: false }));
 
 // Mock del hook useWindowManager
@@ -11,10 +12,10 @@ jest.mock("@/hooks", () => ({
   useWindowManager: () => ({
     getWindowState: mockGetWindowState,
     closeProgram: mockCloseProgram,
+    minimizeProgram: mockMinimizeProgram,
     openProgram: jest.fn(),
     windowsState: { cv: { isOpen: true, isMinimized: false } },
     toggleProgram: jest.fn(),
-    minimizeProgram: jest.fn(),
     restoreProgram: jest.fn(),
     maximizeProgram: jest.fn(),
     getOpenPrograms: jest.fn(() => ["cv"]),
@@ -29,18 +30,23 @@ jest.mock("@/components/pages/components/program", () => ({
     footerCustom,
     open,
     onOpenChange,
+    onMinimize,
   }: {
     children: React.ReactNode;
     headerCustom?: React.ReactNode;
     footerCustom?: React.ReactNode;
     open: boolean;
     onOpenChange?: (isOpen: boolean) => void;
+    onMinimize?: () => void;
   }) =>
     open ? (
       <div data-testid="program-mock">
         {headerCustom && <div data-testid="header-section">{headerCustom}</div>}
         <div data-testid="content-section">{children}</div>
         {footerCustom && <div data-testid="footer-section">{footerCustom}</div>}
+        <button data-testid="minimize-button" onClick={() => onMinimize?.()}>
+          Minimize
+        </button>
         <button data-testid="close-button" onClick={() => onOpenChange?.(false)}>
           Close
         </button>
@@ -86,6 +92,7 @@ jest.mock("@/components/ui/resizable", () => ({
 describe("CVProgram", () => {
   beforeEach(() => {
     mockCloseProgram.mockClear();
+    mockMinimizeProgram.mockClear();
     mockGetWindowState.mockReturnValue({ isOpen: true, isMinimized: false });
   });
 
@@ -150,6 +157,16 @@ describe("CVProgram", () => {
 
     expect(mockCloseProgram).toHaveBeenCalledTimes(1);
     expect(mockCloseProgram).toHaveBeenCalledWith("cv");
+  });
+
+  it("llama a minimizeProgram cuando onMinimize se ejecuta", () => {
+    render(<CVProgram />);
+
+    const minimizeButton = screen.getByTestId("minimize-button");
+    fireEvent.click(minimizeButton);
+
+    expect(mockMinimizeProgram).toHaveBeenCalledTimes(1);
+    expect(mockMinimizeProgram).toHaveBeenCalledWith("cv");
   });
 
   it("no renderiza el programa cuando está cerrado", () => {

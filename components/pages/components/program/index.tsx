@@ -20,6 +20,7 @@ import { cn } from "@/lib/utils";
 interface ProgramProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onMinimize?: () => void;
   title?: string;
   headerCustom?: React.ReactNode;
   children: React.ReactNode;
@@ -37,6 +38,7 @@ enum WindowState {
 export const Program = ({
   open: externalOpen,
   onOpenChange,
+  onMinimize,
   title = "Program",
   headerCustom,
   children,
@@ -58,7 +60,11 @@ export const Program = ({
    */
   const handleMinimize = () => {
     setWindowState(WindowState.MINIMIZED);
-    onOpenChange(false);
+    if (onMinimize) {
+      onMinimize();
+    } else {
+      onOpenChange(false);
+    }
   };
 
   /**
