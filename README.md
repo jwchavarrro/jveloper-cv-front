@@ -79,11 +79,13 @@ bun test:ci
 ## 🎨 Stack Tecnológico
 
 ### Core
+
 - **Next.js 16** - Framework React con App Router
 - **React 19** - Biblioteca UI con React Compiler
 - **TypeScript 5** - Tipado estático
 
 ### Estilos y UI
+
 - **Tailwind CSS 4** - Framework CSS utility-first
 - **shadcn/ui** - Componentes UI accesibles y personalizables
 - **Radix UI** - Primitivas UI sin estilos
@@ -91,10 +93,12 @@ bun test:ci
 - **next-themes** - Manejo de temas claro/oscuro
 
 ### Estado y Datos
+
 - **Jotai** - Gestión de estado atómico y primitivo
 - **react-resizable-panels** - Paneles redimensionables
 
 ### Herramientas de Desarrollo
+
 - **Jest** - Framework de testing
 - **Testing Library** - Utilities para testing de componentes
 - **ESLint** - Linter de código
@@ -167,21 +171,25 @@ bun test:ci          # Tests para CI/CD
 ## 🎯 Características del Sistema Windows
 
 ### Escritorio
+
 - Iconos interactivos (Mi Equipo, Papelera, Documentos, CV)
 - Fondo personalizable
 - Gestión de ventanas con drag & resize
 
 ### Taskbar
+
 - Apps ancladas
 - Indicadores de apps activas
 - Botón de inicio
 
 ### Menú Inicio
+
 - Búsqueda de aplicaciones
 - Apps recientes
 - Acceso rápido
 
 ### Programa CV
+
 - Vista de currículum interactiva
 - Secciones: Experiencia, Educación, Habilidades, Proyectos
 - Descarga de CV en PDF
