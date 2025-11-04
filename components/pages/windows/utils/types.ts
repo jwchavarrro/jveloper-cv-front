@@ -4,6 +4,9 @@
  * @module components/pages/windows/utils/types
  */
 
+// Import of types
+import type { DropdownMenuItemType } from "@/components/atomic-desing/molecules";
+
 /**
  * @type IconType
  * @description Tipos de iconos disponibles
@@ -41,7 +44,9 @@ export interface PageWindowsConfig {
     DESKTOP: {
       ICONS: ProgramType[];
     };
-    START_MENU: Record<string, unknown>;
+    START_MENU: {
+      POWER_MENU_ITEMS: DropdownMenuItemType[];
+    };
     TASKBAR: {
       APPS: TaskbarApp[];
     };

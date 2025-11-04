@@ -14,7 +14,7 @@ import { HeaderCustom, FooterCustom, SidebarPanelPrimary, Editor, IAPanel } from
 import { useWindowManager } from "@/hooks";
 
 export const CVProgram = () => {
-  const { getWindowState, closeProgram } = useWindowManager();
+  const { getWindowState, closeProgram, minimizeProgram } = useWindowManager();
   const cvState = getWindowState("cv");
 
   return (
@@ -25,6 +25,7 @@ export const CVProgram = () => {
           closeProgram("cv");
         }
       }}
+      onMinimize={() => minimizeProgram("cv")}
       headerCustom={<HeaderCustom />}
       footerCustom={<FooterCustom />}
     >
